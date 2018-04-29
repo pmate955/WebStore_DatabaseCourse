@@ -34,6 +34,7 @@ public class ProductDialog extends JDialog {
 		this.add(createMainPanel());
 		this.pack();
 		this.setVisible(true);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 
 	private JMenuBar createMenuBar() {
@@ -70,7 +71,7 @@ public class ProductDialog extends JDialog {
 		JPanel p = new JPanel();
 		p.setLayout(new FlowLayout(FlowLayout.CENTER));
 		for(Product pr : controller.getProductsByBuyers()){
-			ProductPanel ppanel = new ProductPanel(pr);
+			ProductPanel ppanel = new ProductPanel(controller, pr, this);
 			p.add(ppanel);
 		}
 		p.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.blue, 2), "Termékeke, amit mások is megvettek", TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION, new Font("TimesRoman", Font.BOLD, 12)));

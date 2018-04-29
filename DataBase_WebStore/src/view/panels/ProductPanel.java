@@ -10,14 +10,15 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import controller.ProductController;
 import model.bean.Product;
+import view.dialog.ProductDialog;
 
 public class ProductPanel extends JPanel {
-	private Product product;
+	private static final long serialVersionUID = 1L;
 	
-	public ProductPanel(Product product){
+	public ProductPanel(ProductController controller, Product product, ProductDialog dialog){
 		super();
-		this.product = product;
 		this.setPreferredSize(new Dimension(200,250));
 		this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		JLabel title = new JLabel(product.getName());
@@ -36,5 +37,9 @@ public class ProductPanel extends JPanel {
 		viewProduct.setAlignmentX(CENTER_ALIGNMENT);
 		this.add(viewProduct);
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+		viewProduct.addActionListener(event -> {
+			dialog.dispose();
+			new ProductDialog(controller, product);
+		});
 	}
 }
