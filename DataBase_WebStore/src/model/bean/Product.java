@@ -1,6 +1,10 @@
 package model.bean;
 
+import java.awt.Image;
 import java.util.Date;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class Product {
 	private int ID;
@@ -10,6 +14,7 @@ public class Product {
 	private Date addedDate;
 	private int availableCount;
 	private int soldCount;
+	private Image image;
 
 	public Product(int iD, String name, int price, String category, Date addedDate, int availableCount, int soldCount) {
 		ID = iD;
@@ -19,6 +24,11 @@ public class Product {
 		this.addedDate = addedDate;
 		this.availableCount = availableCount;
 		this.soldCount = soldCount;
+		try{
+			image = ImageIO.read(this.getClass().getResource("/picture/" + this.name +".png"));
+		} catch (Exception e){
+			System.out.println("Unable to load image");
+		}
 	}
 
 	public int getID() {
@@ -75,6 +85,10 @@ public class Product {
 
 	public void setSoldCount(int soldCount) {
 		this.soldCount = soldCount;
+	}
+	
+	public ImageIcon getImageBySize(int size) {
+		return new ImageIcon(image.getScaledInstance(size, size, 0));
 	}
 
 	@Override
