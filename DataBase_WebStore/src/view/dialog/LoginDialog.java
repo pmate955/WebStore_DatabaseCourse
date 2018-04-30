@@ -4,15 +4,18 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import controller.LogInController;
+import model.bean.User;
 
 public class LoginDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private LogInController controller;
+	public User user1;
 
 	public LoginDialog(LogInController controller) {
 		this.controller = controller;
@@ -21,6 +24,7 @@ public class LoginDialog extends JDialog {
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.add(createLoginPanel());
 		this.pack();
+		this.setModal(true);
 		this.setVisible(true);
 	}
 
@@ -32,6 +36,16 @@ public class LoginDialog extends JDialog {
 		JPasswordField password = new JPasswordField();
 		JButton login = new JButton("Login");
 		
+		
+		login.addActionListener(event -> {
+			user1 = controller.getUser(username.getText(), new String(password.getPassword()));
+			
+			if(user1 == null) {
+				JOptionPane.showMessageDialog(this, "Nope!", "Error", JOptionPane.ERROR_MESSAGE);
+			} else {
+				setVisible(false);
+			}
+		});
 		
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		

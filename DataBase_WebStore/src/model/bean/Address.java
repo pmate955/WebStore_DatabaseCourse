@@ -4,9 +4,9 @@ public class Address {
 	private int Zipcode;
 	private String City;
 	private String Street;
-	private int HouseNumber;
+	private String HouseNumber;
 	
-	public Address(int postalCode, String city, String street, int houseNumber) {
+	public Address(int postalCode, String city, String street, String houseNumber) {
 		Zipcode = postalCode;
 		City = city;
 		Street = street;
@@ -37,11 +37,11 @@ public class Address {
 		Street = street;
 	}
 
-	public int getHouseNumber() {
+	public String getHouseNumber() {
 		return HouseNumber;
 	}
 
-	public void setHouseNumber(int houseNumber) {
+	public void setHouseNumber(String houseNumber) {
 		HouseNumber = houseNumber;
 	}
 
@@ -50,7 +50,7 @@ public class Address {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((City == null) ? 0 : City.hashCode());
-		result = prime * result + HouseNumber;
+		result = prime * result + ((HouseNumber == null) ? 0 : HouseNumber.hashCode());
 		result = prime * result + ((Street == null) ? 0 : Street.hashCode());
 		result = prime * result + Zipcode;
 		return result;
@@ -70,7 +70,10 @@ public class Address {
 				return false;
 		} else if (!City.equals(other.City))
 			return false;
-		if (HouseNumber != other.HouseNumber)
+		if (HouseNumber == null) {
+			if (other.HouseNumber != null)
+				return false;
+		} else if (!HouseNumber.equals(other.HouseNumber))
 			return false;
 		if (Street == null) {
 			if (other.Street != null)

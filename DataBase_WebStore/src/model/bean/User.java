@@ -9,7 +9,7 @@ public class User {
 	private int balance;
 	private int discount;
 	
-	public User(int iD, String userName, String firstName, String lastName, int postalCode, String city, String street, int houseNumber, int balance,
+	public User(int iD, String userName, String firstName, String lastName, int postalCode, String city, String street, String houseNumber, int balance,
 			int discount) {
 		ID = iD;
 		this.userName = userName;

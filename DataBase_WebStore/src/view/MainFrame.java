@@ -11,7 +11,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,7 +19,9 @@ import javax.swing.border.BevelBorder;
 import controller.LogInController;
 import controller.ProductController;
 import model.bean.Product;
+import model.bean.User;
 import view.dialog.LoginDialog;
+import view.dialog.RegistDialog;
 import view.panels.ProductPanel;
 
 public class MainFrame extends JFrame {
@@ -28,6 +29,8 @@ public class MainFrame extends JFrame {
 	private LogInController controller;
 	private ProductController prod;
 	private JPanel mainPanel;
+	private LoginDialog l;
+	protected JLabel username;
 
 	public MainFrame(LogInController controller, ProductController prod) {
 		this.controller = controller;
@@ -44,14 +47,41 @@ public class MainFrame extends JFrame {
 	private JMenuBar createMenuBar() {
 		JMenuBar menubar = new JMenuBar();
 		JButton login = new JButton("Log In");
-		JMenu regist = new JMenu("Registration");
+		JButton regist = new JButton("Registration");
 		
-		login.addActionListener(event -> {
-			new LoginDialog(controller);
-		});
+		if(this.getClass().getSimpleName().equals("MainFrame")) {
+			login.addActionListener(event -> {
+				l = new LoginDialog(controller);
+				
+				User u = l.user1;
+				if(u != null) {
+					new LoggedinFrame(controller, prod, u);
+					this.dispose();
+				}
+				
+				l.dispose();
+			});
+			
+			regist.addActionListener(event -> {
+				new RegistDialog(controller);
+			});
 		
-		menubar.add(login);
-		menubar.add(regist);
+		
+			menubar.add(login);
+			menubar.add(regist);
+		} else {
+			login.setText("Logout");
+			
+			login.addActionListener(event -> {
+				new MainFrame(controller, prod);
+				this.dispose();
+			});
+			
+			username = new JLabel();
+			
+			menubar.add(username);
+			menubar.add(login);
+		}
 		
 		return menubar;
 	}
