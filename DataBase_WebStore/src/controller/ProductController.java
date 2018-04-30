@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import model.bean.Comment;
@@ -24,6 +25,23 @@ public class ProductController {
 			output.add(px);
 		}
 		return output;
+	}
+
+	public List<String> getCategories(){
+		List<String> out = new ArrayList<String>();
+		for(int i = 0; i < 8; i++){
+			out.add("Category " + i);
+		}
+		return out;
+	}
+	
+	public List<Product> getProductsByCategory(String category){
+		List<Product> out = new ArrayList<Product>();
+		for(int i = 0; i < 10; i++){
+			Product p = new Product(i, "farok", 50+i, "faszok", null, 0,0);
+			out.add(p);
+		}
+		return out;
 	}
 
 }

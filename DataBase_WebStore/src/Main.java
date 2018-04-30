@@ -1,11 +1,11 @@
+import controller.LogInController;
 import controller.ProductController;
-import model.bean.Product;
-import view.dialog.ProductDialog;
+import view.MainFrame;
 
 public class Main {
 
 	public static void main(String[] args) {
-		new ProductDialog(new ProductController(), new Product(0, "farok", 100, null, null, 0, 0));
+		new MainFrame(new LogInController(), new ProductController());
 	}
 
 }
