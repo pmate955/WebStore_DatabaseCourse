@@ -18,6 +18,7 @@ public class LogInController {
 
 	public User getUser(String text, String string) {
 		// TODO Auto-generated method stub
+		int i = 6;
 		return new User(0, "a", "Pista", "Kis", 1111, "Pöcs city", "Bré u.", "1", 0, 0);
 	}
 

@@ -28,7 +28,7 @@ public class LoggedinFrame extends MainFrame {
 		JMenuItem profile = new JMenuItem("Profile");
 		JMenuItem basket = new JMenuItem("Basket");
 		JMenuItem logout = new JMenuItem("Log Out");
-		
+		int i = 6;
 		menu.add(profile);
 		menu.add(basket);
 		menu.add(logout);

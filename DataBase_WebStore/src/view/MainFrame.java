@@ -53,6 +53,7 @@ public class MainFrame extends JFrame {
 			l = new LoginDialog(controller);
 			
 			User u = l.user1;
+			int i = 6;
 			if(u != null) {
 				new LoggedinFrame(controller, prod, u);
 				this.dispose();
