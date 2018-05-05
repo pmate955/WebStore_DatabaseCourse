@@ -1,11 +1,11 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import model.bean.Comment;
 import model.bean.Product;
+import model.bean.User;
 
 public class ProductController {
 
@@ -39,6 +39,15 @@ public class ProductController {
 		List<Product> out = new ArrayList<Product>();
 		for(int i = 0; i < 10; i++){
 			Product p = new Product(i, "farok", 50+i, "faszok", null, 0,0);
+			out.add(p);
+		}
+		return out;
+	}
+	
+	public List<Product> getProductsByUser(User u){
+		List<Product> out = new ArrayList<Product>();
+		for(int i = 0; i < 10; i++){
+			Product p = new Product(i, "farok", 60+i, "faszok", null, 0,0);
 			out.add(p);
 		}
 		return out;

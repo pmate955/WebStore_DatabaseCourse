@@ -1,5 +1,8 @@
 package view.dialog;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -45,6 +48,27 @@ public class LoginDialog extends JDialog {
 			} else {
 				setVisible(false);
 			}
+		});
+		
+		password.addKeyListener( new KeyListener(){
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if(arg0.getKeyCode() == KeyEvent.VK_ENTER) login.doClick();
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
 		});
 		
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));

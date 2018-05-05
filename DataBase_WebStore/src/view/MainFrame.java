@@ -11,7 +11,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -51,9 +50,7 @@ public class MainFrame extends JFrame {
 		
 		login.addActionListener(event -> {
 			l = new LoginDialog(controller);
-			
 			User u = l.user1;
-			int i = 6;
 			if(u != null) {
 				new LoggedinFrame(controller, prod, u);
 				this.dispose();
