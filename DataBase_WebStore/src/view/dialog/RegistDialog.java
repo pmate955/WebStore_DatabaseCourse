@@ -81,7 +81,7 @@ public class RegistDialog extends JDialog {
 				
 				if(controller.isAvailableUser(username.getText(), email.getText())) {
 					try {
-						User user = new User(0, username.getText(), firstname.getText(), lastname.getText(), Integer.parseInt(zipcode.getText()),
+						User user = new User(0, username.getText(), firstname.getText(), lastname.getText(), email.getText(), Integer.parseInt(zipcode.getText()),
 								city.getText(), street.getText(), houseNum.getText(), 0, 0);
 						
 						if(controller.addUser(user, pwd1)) {

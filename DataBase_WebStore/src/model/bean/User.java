@@ -8,8 +8,9 @@ public class User {
 	private Address address;
 	private int balance;
 	private int discount;
+	private String email;
 	
-	public User(int iD, String userName, String firstName, String lastName, int postalCode, String city, String street, String houseNumber, int balance,
+	public User(int iD, String userName, String firstName, String lastName, String email, int postalCode, String city, String street, String houseNumber, int balance,
 			int discount) {
 		ID = iD;
 		this.userName = userName;
@@ -18,6 +19,15 @@ public class User {
 		this.address = new Address(postalCode,  city,  street, houseNumber);
 		this.balance = balance;
 		this.discount = discount;
+		this.email = email;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public int getID() {

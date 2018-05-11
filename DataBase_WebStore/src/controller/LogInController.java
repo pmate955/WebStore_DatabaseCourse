@@ -1,25 +1,31 @@
 package controller;
 
 import javax.swing.JLabel;
+import dao.*;
 
 import model.bean.User;
 
 public class LogInController {
+	
+	private Database_Dao dao;
+	
+	public LogInController() {
+		this.dao = new Database_Dao();
+	}
 
 	public boolean isAvailableUser(String username, String email) {
-		//TODO...
-		return true;
+		
+		return dao.isAvailableUser(username, email);
 	}
 
 	public boolean addUser(User user, String pwd1) {
-		//TODO...
-		return true;
+		
+		return dao.addUser(user, pwd1);
 	}
 
-	public User getUser(String text, String string) {
-		// TODO Auto-generated method stub
-		int i = 6;
-		return new User(0, "a", "Pista", "Kis", 1111, "Pöcs city", "Bré u.", "1", 0, 0);
+	public User getUser(String username, String password) {
+		
+		return dao.getUser(username, password);
 	}
 
 }
