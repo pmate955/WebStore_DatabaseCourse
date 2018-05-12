@@ -277,39 +277,47 @@ public class Database_Dao {
 	public boolean buyProduct(User u, Product p) { // Megveszi a terméket (ár újraszámolva), felhasználó egyenlegét is
 													// frissiteni kell, raktár értéke növelés
 		SQL = "SELECT DARABSZAM FROM RAKTAR WHERE TERMEK_ID=" + p.getID();
+		SQL2 = "SELECT ELADOTT_TERMEK FROM RAKTAR WHERE TERMEK_ID=" + p.getID();
+		
 		int darabszam = 0;
+		int eladottszam = 0;
 		try {
 			rs = stmt.executeQuery(SQL);
 			rs.next();
 			darabszam = rs.getInt("DARABSZAM");
+			rs = stmt.executeQuery(SQL2);
+			rs.next();
+			eladottszam = rs.getInt("ELADOTT_TERMEK");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		if (darabszam > 0) {
 			int balance = u.getBalance() - p.getPrice();
-			int availableAfter = p.getAvailableCount() - 1;
-			int soldAfter = p.getSoldCount() + 1;
-			SQL = "UPDATE FELHASZNALO SET EGYENLEG=" + balance + "WHERE FELHASZNALO.ID=" + u.getID();
-			SQL2 = "UPDATE RAKTAR SET DARABSZAM=" + availableAfter + "WHERE TERMEK.ID=" + p.getID();
-			SQL3 = "UPDATE RAKTAR SET ELADOTT_TERMEK=" + soldAfter + "WHERE TERMEK.ID=" + p.getID();
-			SQL4 = "INSERT INTO PENZUGY(FIZETESI_IDOPONT,BEFOLYO_OSSZEG)VALUES(SYSDATE," + p.getPrice() +")";
-			
-			
-			
-			
+			int availableAfter = darabszam - 1;
+			int soldAfter = eladottszam + 1;
+			SQL = "UPDATE FELHASZNALO SET EGYENLEG=" + balance + " WHERE FELHASZNALO.ID=" + u.getID();
+			SQL2 = "UPDATE RAKTAR SET DARABSZAM=" + availableAfter + " WHERE TERMEK_ID=" + p.getID();
+			SQL3 = "UPDATE RAKTAR SET ELADOTT_TERMEK=" + soldAfter + " WHERE TERMEK_ID=" + p.getID();
+			SQL4 = "INSERT INTO PENZUGY(ID,FIZETESI_IDOPONT,BEFOLYO_OSSZEG) VALUES ((SELECT MAX(ID) FROM PENZUGY)+1,SYSDATE," + p.getPrice() +")";
 			SQL5 = "INSERT INTO RENDELES(FELHASZNALO_ID,TERMEK_ID,PENZUGY_ID,RENDELESI_IDOPONT,STATUSZ,FIZETESI_MOD) VALUES"
 					+ "(" + u.getID() + ", "
 						  + p.getID() + ", "
-						  + "SELECT MAX(PENZUGY_ID) FROM PENZUGY, "
-						  + "fizetve, "
+						  + "(SELECT MAX(ID) FROM PENZUGY), "
+						  + "SYSDATE, "
+						  + "'fizetve', "
 						  + "1)";
 						
 			try {
-				int result = prestmt.executeUpdate(SQL);
-				int result2 = prestmt.executeUpdate(SQL2);
-				int result3 = prestmt.executeUpdate(SQL3);
-				int result4 = prestmt.executeUpdate(SQL4);
-				int result5 = prestmt.executeUpdate(SQL5);
+				prestmt = conn.prepareStatement(SQL);
+				int result = prestmt.executeUpdate();
+				prestmt = conn.prepareStatement(SQL2);
+				int result2 = prestmt.executeUpdate();
+				prestmt = conn.prepareStatement(SQL3);
+				int result3 = prestmt.executeUpdate();
+				prestmt = conn.prepareStatement(SQL4);
+				int result4 = prestmt.executeUpdate();
+				prestmt = conn.prepareStatement(SQL5);
+				int result5 = prestmt.executeUpdate();
 				return (result == 1) && (result2 == 1) && (result3 == 1) && (result4 == 1) && (result5 == 1);
 			} catch (SQLException e) {
 
