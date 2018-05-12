@@ -111,7 +111,8 @@ public class Database_Dao {
 						rs.getString("UTCA"),
 						rs.getString("HAZSZAM"),
 						rs.getInt("EGYENLEG"),
-						rs.getInt("KEDVEZMENYPONT"));
+						rs.getInt("KEDVEZMENYPONT"),
+						rs.getInt("JOGOSULTSAG")==0);
 						return u;
 
 								
