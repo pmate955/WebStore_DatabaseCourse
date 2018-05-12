@@ -182,7 +182,7 @@ public class Database_Dao {
 			return null;
 		}
 	
-		public List<Product> getProductsByUser(User u){						//Lekéri egy adott felhasználó által vásárolt termékeket
+		public List<Product> getProductsByUser(User u){						//Lekéri egy adott felhasználó által vásárolt termék kategóriákba sorolt termékeket
 			List<Product> out = new ArrayList<Product>();
 
 			SQL = "SELECT TERMEK.ID,TERMEK.NEV,TERMEK.AR,ARUKATEGORIA.NEV,TERMEK.DATUM FROM TERMEK,KATEGORIA,ARUKATEGORIA WHERE ARUKATEGORIA.ID = KATEGORIA.ARUKATEGORIA_ID AND TERMEK.ID = KATEGORIA.TERMEK_ID AND KATEGORIA.ARUKATEGORIA_ID in (SELECT ARUKATEGORIA.ID FROM RAKTAR,TERMEK,KATEGORIA,ARUKATEGORIA,RENDELES,FELHASZNALO WHERE "
@@ -210,10 +210,12 @@ public class Database_Dao {
 		public List<Product> getProductsByTheUser(User u){					//Azon termékek listája, amit user megvett
 			List<Product> out = new ArrayList<Product>();
 			
-			SQL = "SELECT TERMEK.ID,TERMEK.NEV,TERMEK.AR,ARUKATEGORIA.NEV,TERMEK.DATUM FROM TERMEK,RENDELES,FELHASZNALO WHERE"
-					+ " FELHASZNALO.ID ="+ u.getID() +" AND"
+			SQL = "SELECT TERMEK.ID,TERMEK.NEV,TERMEK.AR,ARUKATEGORIA.NEV,TERMEK.DATUM FROM KATEGORIA,ARUKATEGORIA,TERMEK,RENDELES,FELHASZNALO WHERE"
+					+ "FELHASZNALO.ID ="+ u.getID() +" AND"
 					+ "RENDELES.FELHASZNALO_ID = FELHASZNALO.ID AND" 
-					+ "TERMEK.ID = RENDELES.TERMEK_ID";
+					+ "TERMEK.ID = RENDELES.TERMEK_ID"
+					+ "ARUKATEGORIA.ID = KATEGORIA.ARUKATEGORIA_ID AND"
+					+ "TERMEK.ID = KATEGORIA.TERMEK_ID";
 			try {
 				rs = stmt.executeQuery(SQL);
 				while(rs.next()) {
