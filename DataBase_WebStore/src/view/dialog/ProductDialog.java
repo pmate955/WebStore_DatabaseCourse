@@ -13,6 +13,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
 
 import controller.ProductController;
@@ -76,6 +77,9 @@ public class ProductDialog extends JDialog {
 			panel.add(commentBtn);
 			commentBtn.addActionListener(e -> {
 				new CommentDialog(user,product,controller);
+				this.setVisible(false);
+				new ProductDialog(controller,product, user);
+				this.dispose();
 			});
 		}
 		for(Comment c: controller.getComments(product)){
@@ -99,15 +103,15 @@ public class ProductDialog extends JDialog {
 		JPanel out = new JPanel();
 		out.setLayout(new FlowLayout(FlowLayout.CENTER));
 		JLabel user = new JLabel(c.getUsername());
-		user.setFont(new Font("TimesRoman", Font.BOLD, 12));
+		user.setFont(new Font("TimesRoman", Font.ITALIC, 18));
 		out.add(user);
 		JLabel value = new JLabel(c.getValue() + "/5");
-		value.setFont(new Font("TimesRoman", Font.BOLD, 12));
+		value.setFont(new Font("TimesRoman", Font.BOLD, 18));
 		out.add(value);
 		JLabel comment = new JLabel(c.getComment());
-		comment.setFont(new Font("TimesRoman", Font.BOLD, 12));
+		comment.setFont(new Font("TimesRoman", Font.BOLD, 18));
 		out.add(comment);
-		out.setBorder(BorderFactory.createLineBorder(Color.CYAN, 1));
+		out.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		return out;
 	}
 }

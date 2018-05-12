@@ -27,12 +27,15 @@ public class CommentDialog extends JDialog {
 	private ProductController prod;
 	private Product p;
 	private User u;
+	public  boolean isAdded;
 	
 	public CommentDialog(User u,Product p, ProductController prod){
 		this.p = p;
 		this.u = u;
 		this.setTitle("Add comment");
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		this.isAdded = false;
+		this.setModal(true);
 		this.setLayout(new BorderLayout());
 		this.prod = prod;
 		this.add(createMainPanel(), BorderLayout.NORTH);
