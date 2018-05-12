@@ -1,6 +1,7 @@
 package model.bean;
 
 import java.awt.Image;
+import java.io.IOException;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
@@ -27,7 +28,12 @@ public class Product {
 		try{
 			image = ImageIO.read(this.getClass().getResource("/picture/" + this.name +".png"));
 		} catch (Exception e){
-			System.out.println("Unable to load image");
+			try {
+				image = ImageIO.read(this.getClass().getResource("/picture/noprev.png"));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 

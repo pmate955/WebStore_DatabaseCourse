@@ -9,10 +9,12 @@ public class User {
 	private int balance;
 	private int discount;
 	private String email;
+	private boolean isAdmin;
 	
 	public User(int iD, String userName, String firstName, String lastName, String email, int postalCode, String city, String street, String houseNumber, int balance,
-			int discount) {
+			int discount, boolean isAdmin) {
 		ID = iD;
+		this.isAdmin = isAdmin;
 		this.userName = userName;
 		this.firstName = firstName;
 		this.lastName = lastName;

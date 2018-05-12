@@ -13,6 +13,12 @@ public class Address {
 		HouseNumber = houseNumber;
 	}
 
+	@Override
+	public String toString() {
+		return "Zipcode: " + Zipcode + ", City: " + City + ", Street: " + Street + ", HouseNumber: " + HouseNumber
+				;
+	}
+
 	public int getZipcode() {
 		return Zipcode;
 	}
