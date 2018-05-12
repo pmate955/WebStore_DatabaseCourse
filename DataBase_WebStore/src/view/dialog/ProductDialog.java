@@ -11,9 +11,9 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
 
 import controller.ProductController;
@@ -45,10 +45,10 @@ public class ProductDialog extends JDialog {
 	private JMenuBar createMenuBar() {
 		JMenuBar menubar = new JMenuBar();
 		JMenu price = new JMenu(String.valueOf(product.getPrice()) + " huf/piece");
-		JMenu buy = new JMenu("Buy");
+		JButton buy = new JButton("Buy");
 		buy.addActionListener(e -> {
 			if(controller.buyProduct(user, product)){
-				//JOptionPane.showMessageDialog(parentComponent, message);
+				JOptionPane.showMessageDialog(this, "Success");
 			};
 		});
 		

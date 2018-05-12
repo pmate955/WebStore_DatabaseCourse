@@ -276,11 +276,12 @@ public class Database_Dao {
 
 	public boolean buyProduct(User u, Product p) { // Megveszi a terméket (ár újraszámolva), felhasználó egyenlegét is
 													// frissiteni kell, raktár értéke növelés
-		SQL = "SELECT DARABSZAM AS SZAM FROM RAKTAR WHERE TERMEK.ID=" + p.getID();
+		SQL = "SELECT DARABSZAM FROM RAKTAR WHERE TERMEK_ID=" + p.getID();
 		int darabszam = 0;
 		try {
 			rs = stmt.executeQuery(SQL);
-			darabszam = rs.getInt("SZAM");
+			rs.next();
+			darabszam = rs.getInt("DARABSZAM");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
