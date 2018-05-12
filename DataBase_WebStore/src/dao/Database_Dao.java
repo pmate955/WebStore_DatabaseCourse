@@ -231,6 +231,31 @@ public class Database_Dao {
 			return null;
 		}
 		
+		public List<Product> getProductsByBuyers(Product p) {				//Azon termékek listája, amit az adott terméket megvásárolt felhasználók vásároltak
+			List<Product> output = new ArrayList<Product>();
 		
+			SQL = "SELECT TERMEK.ID,TERMEK.NEV,TERMEK.AR,ARUKATEGORIA.NEV,TERMEK.DATUM FROM ARUKATEGORIA,TERMEK,RENDELES,FELHASZNALO,KATEGORIA WHERE " 
+					+ "RENDELES.FELHASZNALO_ID = FELHASZNALO.ID AND " 
+					+ "TERMEK.ID = RENDELES.TERMEK_ID AND"
+					+ "ARUKATEGORIA.ID = KATEGORIA.ARUKATEGORIA_ID AND " 
+					+ "KATEGORIA.TERMEK_ID = TERMEK.ID AND"
+					+ "FELHASZNALO_ID in (SELECT FELHASZNALO.ID FROM TERMEK,FELHASZNALO,RENDELES WHERE "
+					+ "RENDELES.TERMEK_ID = TERMEK.ID AND " 
+					+ "FELHASZNALO.ID = RENDELES.FELHASZNALO_ID AND " 
+					+ "TERMEK.ID =" + p.getID() + ")";
+			try {
+				rs = stmt.executeQuery(SQL);
+				while(rs.next()) {
+					Product pr = new Product(rs.getInt("ID"), rs.getString("NEV"), rs.getInt("AR"), rs.getString("NEV"), rs.getDate("DATUM"));
+					output.add(pr);
+				}
+				return output;
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			return null;
+		}
 		
 }
