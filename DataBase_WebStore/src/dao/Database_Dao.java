@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.bean.Comment;
 import model.bean.Product;
 import model.bean.User;
 import oracle.jdbc.pool.OracleDataSource;
@@ -155,6 +156,25 @@ public class Database_Dao {
 					out.add(p);
 				}
 				return out;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			return null;
+		}
+		
+		public List<Comment> getComments(Product product) {					//Lekéri az adott termékhez tartozó kommenteket
+			List<Comment> output = new ArrayList<Comment>();
+			
+			SQL = "SELECT KOMMENT.KOMMENT,KOMMENT.ERTEKELES,KOMMENT.IDOPONT,FELHASZNALO.FELHASZNALONEV FROM TERMEK,KOMMENT,FELHASZNALO WHERE"
+					+ " TERMEK.ID = KOMMENT.TERMEK_ID AND KOMMENT.FELHASZNALO_ID = FELHASZNALO.ID AND TERMEK.NEV='" + product.getName() + "'";
+			try {
+				rs = stmt.executeQuery(SQL);
+				while(rs.next()) {
+					Comment c = new Comment(rs.getString("KOMMENT"), rs.getInt("ERTEKELES"), rs.getDate("IDOPONT"), rs.getString("FELHASZNALONEV"));
+					output.add(c);
+				}
+				return output;
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

@@ -26,12 +26,8 @@ public class ProductController {
 	}
 
 	public List<Comment> getComments(Product product) {					//Lekéri az adott termékhez tartozó kommenteket
-		List<Comment> output = new ArrayList<Comment>();
-		for(int i = 0; i < 5; i++){
-			Comment px = new Comment("Comment text --- - -- ", i,null,"user" + i);
-			output.add(px);
-		}
-		return output;
+		
+		return dao.getComments(product);
 	}
 
 	public List<String> getCategories(){								//Lekéri a kategóriákat
