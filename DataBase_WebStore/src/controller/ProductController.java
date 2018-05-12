@@ -45,7 +45,7 @@ public class ProductController {
 	}
 	
 	public boolean buyProduct(User u, Product p){						//Megveszi a terméket (ár újraszámolva), felhasználó egyenlegét is frissiteni kell, raktár értéke növelés
-		return true;
+		return dao.buyProduct(u, p);
 	}
 	
 	public boolean addComment(Comment c, Product p, User u){					//Hozzáadja a kommentet
