@@ -96,6 +96,9 @@ public class MainFrame extends JFrame {
 		panel.add(catPanel);
 		List<Product> input = prod.getProductsByCategory(category);
 		for(int i = 0; i < 5; i++){
+			if(i >= input.size()) {
+				break;
+			}
 			Product p = input.get(i);
 			if(p != null){
 				ProductPanel pr = new ProductPanel(prod, p, null);

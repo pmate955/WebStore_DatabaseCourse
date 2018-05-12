@@ -3,11 +3,18 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.Database_Dao;
 import model.bean.Comment;
 import model.bean.Product;
 import model.bean.User;
 
 public class ProductController {
+	
+	private Database_Dao dao;
+	
+	public ProductController() {
+		this.dao = new Database_Dao();
+	}
 
 	public List<Product> getProductsByBuyers(Product p) {				//Azon termékek listája, amit az adott terméket megvásárolt felhasználók vásároltak
 		List<Product> output = new ArrayList<Product>();
@@ -28,20 +35,13 @@ public class ProductController {
 	}
 
 	public List<String> getCategories(){								//Lekéri a kategóriákat
-		List<String> out = new ArrayList<String>();
-		for(int i = 0; i < 8; i++){
-			out.add("Category " + i);
-		}
-		return out;
+
+		return dao.getCategories();
 	}
 	
 	public List<Product> getProductsByCategory(String category){		//Lekéri az adott kategóriába tartozó termékeket
-		List<Product> out = new ArrayList<Product>();
-		for(int i = 0; i < 10; i++){
-			Product p = new Product(i, "farok", 50+i, "faszok", null, 0,0);
-			out.add(p);
-		}
-		return out;
+		
+		return dao.getProductsByCategory(category);
 	}
 	
 	public List<Product> getProductsByUser(User u){						//Lekéri egy adott felhasználó által vásárolt termékeket

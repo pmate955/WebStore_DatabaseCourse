@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
+import model.bean.Product;
 import model.bean.User;
 import oracle.jdbc.pool.OracleDataSource;
 
@@ -102,7 +105,8 @@ public class Database_Dao {
 						rs.getString("VEZETEKNEV"),
 						rs.getString("KERESZTNEV"),
 						rs.getString("EMAIL"),
-						rs.getInt("IRANYITOSZAM"),
+						rs.
+						getInt("IRANYITOSZAM"),
 						rs.getString("VAROS"),
 						rs.getString("UTCA"),
 						rs.getString("HAZSZAM"),
@@ -115,6 +119,46 @@ public class Database_Dao {
 				return null;
 			}
 			
-		}	
+		}
+		
+		public List<String> getCategories(){								//Lekéri a kategóriákat
+			List<String> out = new ArrayList<String>();
+			
+			SQL = "SELECT NEV FROM ARUKATEGORIA";
+			
+			try {
+				rs = stmt.executeQuery(SQL);
+				while(rs.next()) {
+					String kategoria = rs.getString("NEV");
+					out.add(kategoria);
+				}
+				return out;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			return null;
+		}
+		
+		public List<Product> getProductsByCategory(String category){		//Lekéri az adott kategóriába tartozó termékeket
+			List<Product> out = new ArrayList<Product>();
+			
+			SQL = "SELECT TERMEK.ID,TERMEK.NEV,TERMEK.AR,ARUKATEGORIA.NEV,TERMEK.DATUM,RAKTAR.DARABSZAM,RAKTAR.ELADOTT_TERMEK FROM TERMEK,ARUKATEGORIA,RAKTAR,KATEGORIA WHERE ARUKATEGORIA.NEV='" + category +"' AND KATEGORIA.TERMEK_ID = TERMEK.ID AND"
+					+ " KATEGORIA.ARUKATEGORIA_ID = ARUKATEGORIA.ID AND RAKTAR.TERMEK_ID = TERMEK.ID";
+			
+			
+			try {
+				rs = stmt.executeQuery(SQL);
+				while(rs.next()) {
+					Product p = new Product(rs.getInt("ID"), rs.getString("NEV"), rs.getInt("AR"), category, rs.getDate("DATUM"), rs.getInt("DARABSZAM"), rs.getInt("ELADOTT_TERMEK"));
+					out.add(p);
+				}
+				return out;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			return null;
+		}
 	
 }
