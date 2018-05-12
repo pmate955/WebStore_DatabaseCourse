@@ -47,8 +47,10 @@ public class ProductDialog extends JDialog {
 		JMenu price = new JMenu(String.valueOf(product.getPrice()) + " huf/piece");
 		JButton buy = new JButton("Buy");
 		buy.addActionListener(e -> {
-			if(controller.buyProduct(user, product)){
+			if(user.getBalance()>= product.getPrice() && controller.buyProduct(user, product)){
 				JOptionPane.showMessageDialog(this, "Success");
+			} else {
+				JOptionPane.showMessageDialog(this, "You are poor :(");
 			};
 		});
 		

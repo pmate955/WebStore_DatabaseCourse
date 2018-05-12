@@ -11,4 +11,8 @@ public class AdminController {
 	public boolean addCategory(String category){
 		return true;
 	}
+	
+	public boolean deleteProduct(String productName){
+		return true;
+	}
 }

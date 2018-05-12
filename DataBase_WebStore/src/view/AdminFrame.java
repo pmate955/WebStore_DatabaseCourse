@@ -13,11 +13,13 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controller.AdminController;
+import controller.LogInController;
 import controller.ProductController;
 import model.bean.Product;
 import model.bean.User;
@@ -34,19 +36,52 @@ public class AdminFrame extends JFrame {
 		contr = new AdminController();
 		this.setTitle("ADMIN");		
 		this.setLayout(new BorderLayout());
+		JMenuBar bar = new JMenuBar();
+		this.setJMenuBar(bar);
+		JButton logout = new JButton("Log out");
+		bar.add(logout);
+		logout.addActionListener(e -> {
+			this.setVisible(false);
+			new MainFrame(new LogInController(), prod);
+			this.dispose();
+		});
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		
 		mainPanel.add(createAddPanel());
 		mainPanel.add(createCategoryPanel());
+		mainPanel.add(createDeletePanel());
 		this.add(mainPanel);
 		this.pack();
 		this.setVisible(true);
 	}
 
+	private JPanel createDeletePanel() {
+		JPanel panel = new JPanel();
+		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		panel.add(new JLabel("Product name: "));
+		JTextField name = new JTextField(10);
+		panel.add(name);
+		JButton addBtn = new JButton("Delete");
+		panel.add(addBtn);
+		addBtn.addActionListener(e -> {
+			if(name.getText().isEmpty()){
+				JOptionPane.showMessageDialog(this, "Empty field");
+			} else {
+				if(contr.deleteProduct(name.getText())){
+					JOptionPane.showMessageDialog(this, "Delete succesful", "Done", JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(this, "Database error :(");
+				}
+			}
+		});
+		panel.setBorder(BorderFactory.createTitledBorder("Delete product"));
+		return panel;
+	}
+
 	private JPanel createCategoryPanel() {
 		JPanel panel = new JPanel();
-		panel.setLayout(new FlowLayout());
+		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		panel.add(new JLabel("New category name: "));
 		JTextField name = new JTextField(10);
 		panel.add(name);
@@ -73,7 +108,7 @@ public class AdminFrame extends JFrame {
 		out.add(new JLabel("Name: "));
 		JTextField nameField = new JTextField();
 		out.add(nameField);
-		out.add(new JLabel("Price: "));
+		//out.add(new JLabel("Price: ").setSize(50, 10));
 		JTextField priceField = new JTextField();
 		out.add(priceField);
 		out.add(new JLabel("Category: "));
