@@ -7,12 +7,12 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import controller.LogInController;
 import controller.ProductController;
 import model.bean.Product;
 import model.bean.User;
+import view.dialog.ProfileFrame;
 import view.panels.ProductPanel;
 
 public class LoggedinFrame extends MainFrame {
@@ -38,6 +38,9 @@ public class LoggedinFrame extends MainFrame {
 		JMenu menu = new JMenu(user.getUserName());
 		JMenu category = new JMenu("Category");
 		JMenuItem profile = new JMenuItem("Profile");
+		profile.addActionListener(e -> {
+			new ProfileFrame(user,prod);
+		});
 		JMenuItem basket = new JMenuItem("Basket");
 		JMenuItem logout = new JMenuItem("Log Out");
 		logout.addActionListener(evt -> {
