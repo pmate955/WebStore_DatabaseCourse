@@ -75,7 +75,7 @@ public class ProductDialog extends JDialog {
 		if(user != null){
 			panel.add(commentBtn);
 			commentBtn.addActionListener(e -> {
-				new CommentDialog(user,controller);
+				new CommentDialog(user,product,controller);
 			});
 		}
 		for(Comment c: controller.getComments(product)){

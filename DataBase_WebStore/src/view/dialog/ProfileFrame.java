@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import controller.ProductController;
 import model.bean.Product;
 import model.bean.User;
+import view.panels.ProductPanel;
 
 public class ProfileFrame extends JDialog {
 	private User user;
@@ -21,6 +22,7 @@ public class ProfileFrame extends JDialog {
 	
 	public ProfileFrame(User user, ProductController prod){
 		this.user = user;
+		this.prod = prod;
 		this.setTitle(user.getUserName());
 		this.setSize(new Dimension(500,500));
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -47,9 +49,11 @@ public class ProfileFrame extends JDialog {
 	
 	private JPanel createProdPanel(){
 		JPanel	panel = new JPanel();
-		//List<Product> products = prod.getProductsTheByUser(user);
-		//panel.setLayout(new GridLayout(products.size()/5+1,products.size()%5+1));
-		
+		List<Product> products = prod.getProductsByTheUser(user);
+		panel.setLayout(new GridLayout(products.size()/5+1,products.size()%5+1));
+		for(Product p:products){
+			panel.add(new ProductPanel(prod, p, user));
+		}
 		return panel;
 	}
 	

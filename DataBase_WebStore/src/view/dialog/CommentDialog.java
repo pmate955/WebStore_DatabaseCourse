@@ -3,6 +3,7 @@ package view.dialog;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -14,6 +15,8 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
 import controller.ProductController;
+import model.bean.Comment;
+import model.bean.Product;
 import model.bean.User;
 
 public class CommentDialog extends JDialog {
@@ -21,8 +24,12 @@ public class CommentDialog extends JDialog {
 	private JTextField text;
 	private JSpinner spinner;
 	private ProductController prod;
+	private Product p;
+	private User u;
 	
-	public CommentDialog(User u, ProductController prod){
+	public CommentDialog(User u,Product p, ProductController prod){
+		this.p = p;
+		this.u = u;
 		this.setTitle("Add comment");
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setLayout(new BorderLayout());
@@ -41,7 +48,12 @@ public class CommentDialog extends JDialog {
 			if(text.getText().length() == 0){
 				JOptionPane.showMessageDialog(this, "Empty field");
 			} else {
-				//prod
+				Date d = new Date();
+				if(prod.addComment(new Comment(text.getText(), (int)spinner.getValue(),d, u.getUserName()),p)){
+					this.dispose();
+				} else {
+					JOptionPane.showMessageDialog(this, "Database error!");
+				}
 			}
 		});
 		JButton cnclBtn = new JButton("Cancel");
