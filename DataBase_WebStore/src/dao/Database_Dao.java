@@ -326,5 +326,24 @@ public class Database_Dao {
 		}
 		return false;
 	}
+	
+	public User reloadUser(User u){
+		
+		SQL = "SELECT * FROM FELHASZNALO WHERE FELHASZNALONEV='" + u.getUserName() + "'";
+
+		try {
+			rs = stmt.executeQuery(SQL);
+			rs.next();
+
+			User us = new User(rs.getInt("ID"), rs.getString("FELHASZNALONEV"), rs.getString("VEZETEKNEV"),
+					rs.getString("KERESZTNEV"), rs.getString("EMAIL"), rs.getInt("IRANYITOSZAM"), rs.getString("VAROS"),
+					rs.getString("UTCA"), rs.getString("HAZSZAM"), rs.getInt("EGYENLEG"), rs.getInt("KEDVEZMENYPONT"),
+					rs.getInt("JOGOSULTSAG") == 0);
+			return us;
+
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
 }
