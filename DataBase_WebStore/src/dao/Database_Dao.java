@@ -97,7 +97,7 @@ public class Database_Dao {
 				rs = stmt.executeQuery(SQL);
 				rs.next();
 				
-				User u = new User(rs.getInt("Id"),
+				User u = new User(rs.getInt("ID"),
 						rs.getString("FELHASZNALONEV"),
 						rs.getString("VEZETEKNEV"),
 						rs.getString("KERESZTNEV"),
@@ -108,13 +108,13 @@ public class Database_Dao {
 						rs.getString("HAZSZAM"),
 						rs.getInt("EGYENLEG"),
 						rs.getInt("KEDVEZMENYPONT"));
-				return u;
-				
+						return u;
+
+								
 			} catch(Exception e) {
-				e.printStackTrace();
+				return null;
 			}
 			
-			return null;
 		}	
 	
 }
