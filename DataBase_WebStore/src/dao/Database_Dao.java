@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -252,10 +253,30 @@ public class Database_Dao {
 				return output;
 			} catch(Exception e) {
 				e.printStackTrace();
+			}			
+			return null;
+		}
+		
+		public boolean addComment(Comment c, Product p){					//Hozzáadja a kommentet
+			
+			SQL = "INSERT INTO KOMMENT(FELHASZNALO_ID,TERMEK_ID,IDOPONT,KOMMENT,ERTEKELES) VALUES (?,?,?,?,?)";
+			
+			try {
+				prestmt = conn.prepareStatement(SQL);
+				prestmt.setInt(1, p.getID());
+				prestmt.setDate(2, (Date) c.getDate());
+				prestmt.setString(3, c.getComment());
+				prestmt.setInt(4, c.getValue());
+				
+				int result = prestmt.executeUpdate();
+				
+				return result == 1;
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
 			
-			
-			return null;
+			return false;
 		}
 		
 }
