@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -36,7 +37,7 @@ public class LoggedinFrame extends MainFrame {
 	
 	protected JMenuBar createLoggedInMenuBar() {
 		JMenuBar menubar = new JMenuBar();
-		JMenu menu = new JMenu(user.getUserName());
+		JMenu menu = new JMenu(user.getUserName() + " | " + user.getBalance() + " HUF");
 		JMenu category = new JMenu("Category");
 		JMenuItem profile = new JMenuItem("Profile");
 		profile.addActionListener(e -> {
@@ -68,7 +69,17 @@ public class LoggedinFrame extends MainFrame {
 	}
 	
 	private void setCategory(String category){
-		System.out.println(category);
+		mainPanel = new JPanel();
+		List<Product> products = prod.getProductsByCategory(category);
+		mainPanel.setLayout(new GridLayout(products.size()/5+1,products.size()%5+1));
+		for(Product p : products){
+			mainPanel.add(new ProductPanel(prod, p, user));
+		}
+		mainPanel.setBorder(BorderFactory.createTitledBorder("Products by " + category));
+		this.setContentPane(mainPanel);
+		this.revalidate();
+		this.repaint();
+		this.pack();
 	}
 
 	private void createLoggedInPanel(){
@@ -86,7 +97,7 @@ public class LoggedinFrame extends MainFrame {
 		for(Product p:products){
 			mainPanel.add(new ProductPanel(prod, p, user));
 		}
-		
+		mainPanel.setBorder(BorderFactory.createTitledBorder("Products by your cock"));
 		this.setContentPane(mainPanel);
 	}
 }

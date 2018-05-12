@@ -108,7 +108,7 @@ public class AdminFrame extends JFrame {
 		out.add(new JLabel("Name: "));
 		JTextField nameField = new JTextField();
 		out.add(nameField);
-		//out.add(new JLabel("Price: ").setSize(50, 10));
+		out.add(new JLabel("Price: "));
 		JTextField priceField = new JTextField();
 		out.add(priceField);
 		out.add(new JLabel("Category: "));

@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 
+import controller.LogInController;
 import controller.ProductController;
 import model.bean.Comment;
 import model.bean.Product;
@@ -27,12 +28,14 @@ public class ProductDialog extends JDialog {
 	private ProductController controller;
 	private Product product;
 	private User user;
-
-	public ProductDialog(ProductController controller, Product product, User user) {
+	private LogInController log;
+	
+	
+	public ProductDialog(ProductController controller, Product product, User user, LogInController log) {
 		this.controller = controller;
 		this.product = product;
 		this.user = user;
-		
+		this.log = log;
 		this.setTitle(product.getName());
 		this.setSize(400, 500);
 		this.setJMenuBar(createMenuBar());
@@ -49,6 +52,7 @@ public class ProductDialog extends JDialog {
 		buy.addActionListener(e -> {
 			if(user.getBalance()>= product.getPrice() && controller.buyProduct(user, product)){
 				JOptionPane.showMessageDialog(this, "Success");
+				user = log.getUser(username, password)
 			} else {
 				JOptionPane.showMessageDialog(this, "You are poor :(");
 			};

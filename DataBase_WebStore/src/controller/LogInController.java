@@ -27,5 +27,9 @@ public class LogInController {
 		
 		return dao.getUser(username, password);
 	}
+	
+	public User reloadUser(User u){
+		return null;
+	}
 
 }

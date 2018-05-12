@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -54,6 +55,7 @@ public class ProfileFrame extends JDialog {
 		for(Product p:products){
 			panel.add(new ProductPanel(prod, p, user));
 		}
+		panel.setBorder(BorderFactory.createTitledBorder("Buyed products"));
 		return panel;
 	}
 	
