@@ -45,7 +45,7 @@ public class ProductController {
 	}
 	
 	public List<Product> getProductsByTheUser(User u){					//Azon termékek listája, amit user megvett
-		return null;
+		return dao.getProductsByTheUser(u);
 	}
 	
 	public boolean buyProduct(User u, Product p){						//Megveszi a terméket (ár újraszámolva), felhasználó egyenlegét is frissiteni kell, raktár értéke növelés
