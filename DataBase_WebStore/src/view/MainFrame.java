@@ -51,8 +51,11 @@ public class MainFrame extends JFrame {
 		login.addActionListener(event -> {
 			l = new LoginDialog(controller);
 			User u = l.user1;
-			if(u != null) {
+			if(u != null && !u.isAdmin()) {
 				new LoggedinFrame(controller, prod, u);
+				this.dispose();
+			} else if(u != null){
+				new AdminFrame(u, prod);
 				this.dispose();
 			}
 			

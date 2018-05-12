@@ -11,6 +11,7 @@ public class User {
 	private String email;
 	private boolean isAdmin;
 	
+
 	public User(int iD, String userName, String firstName, String lastName, String email, int postalCode, String city, String street, String houseNumber, int balance,
 			int discount, boolean isAdmin) {
 		ID = iD;
@@ -88,6 +89,10 @@ public class User {
 		this.discount = discount;
 	}
 
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
