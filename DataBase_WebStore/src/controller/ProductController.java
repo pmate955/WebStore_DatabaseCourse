@@ -48,8 +48,8 @@ public class ProductController {
 		return true;
 	}
 	
-	public boolean addComment(Comment c, Product p){					//Hozzáadja a kommentet
-		return true;
+	public boolean addComment(Comment c, Product p, User u){					//Hozzáadja a kommentet
+		return dao.addComment(c, p, u);
 	}
 	
 	

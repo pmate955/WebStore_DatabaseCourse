@@ -257,16 +257,17 @@ public class Database_Dao {
 			return null;
 		}
 		
-		public boolean addComment(Comment c, Product p){					//Hozzáadja a kommentet
+		public boolean addComment(Comment c, Product p, User u){					//Hozzáadja a kommentet
 			
 			SQL = "INSERT INTO KOMMENT(FELHASZNALO_ID,TERMEK_ID,IDOPONT,KOMMENT,ERTEKELES) VALUES (?,?,?,?,?)";
 			
 			try {
 				prestmt = conn.prepareStatement(SQL);
-				prestmt.setInt(1, p.getID());
-				prestmt.setDate(2, (Date) c.getDate());
-				prestmt.setString(3, c.getComment());
-				prestmt.setInt(4, c.getValue());
+				prestmt.setInt(1, u.getID());
+				prestmt.setInt(2, p.getID());
+				prestmt.setDate(3, (Date) c.getDate());
+				prestmt.setString(4, c.getComment());
+				prestmt.setInt(5, c.getValue());
 				
 				int result = prestmt.executeUpdate();
 				
@@ -275,6 +276,13 @@ public class Database_Dao {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			
+			return false;
+		}
+		
+		public boolean buyProduct(User u, Product p){						//Megveszi a terméket (ár újraszámolva), felhasználó egyenlegét is frissiteni kell, raktár értéke növelés
+			
+			SQL = "INSERT INTO ";
 			
 			return false;
 		}

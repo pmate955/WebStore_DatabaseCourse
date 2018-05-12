@@ -3,7 +3,8 @@ package view.dialog;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.util.Date;
+import java.sql.Date;
+import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -48,8 +49,9 @@ public class CommentDialog extends JDialog {
 			if(text.getText().length() == 0){
 				JOptionPane.showMessageDialog(this, "Empty field");
 			} else {
-				Date d = new Date();
-				if(prod.addComment(new Comment(text.getText(), (int)spinner.getValue(),d, u.getUserName()),p)){
+				Calendar cal = Calendar.getInstance();
+				Date d = new Date(cal.getTimeInMillis());
+				if(prod.addComment(new Comment(text.getText(), (int)spinner.getValue(),d, u.getUserName()),p,u)){
 					this.dispose();
 				} else {
 					JOptionPane.showMessageDialog(this, "Database error!");
