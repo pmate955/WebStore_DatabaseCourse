@@ -12,6 +12,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import controller.LogInController;
 import controller.ProductController;
 import model.bean.Product;
 import model.bean.User;
@@ -20,10 +21,12 @@ import view.panels.ProductPanel;
 public class ProfileFrame extends JDialog {
 	private User user;
 	private ProductController prod;
+	private LogInController con;
 	
-	public ProfileFrame(User user, ProductController prod){
-		this.user = user;
+	public ProfileFrame(User user, ProductController prod, LogInController con){
+		this.user = con.reloadUser(user);
 		this.prod = prod;
+		this.con = con;		
 		this.setTitle(user.getUserName());
 		this.setSize(new Dimension(500,500));
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -31,6 +34,7 @@ public class ProfileFrame extends JDialog {
 		this.add(createDataPanel(), BorderLayout.NORTH);
 		this.add(createProdPanel(), BorderLayout.CENTER);
 		this.setVisible(true);
+		this.pack();
 	}
 
 	private JPanel createDataPanel() {
@@ -53,7 +57,7 @@ public class ProfileFrame extends JDialog {
 		List<Product> products = prod.getProductsByTheUser(user);
 		panel.setLayout(new GridLayout(products.size()/5+1,products.size()%5+1));
 		for(Product p:products){
-			panel.add(new ProductPanel(prod, p, user));
+			panel.add(new ProductPanel(prod, p, user, con));
 		}
 		panel.setBorder(BorderFactory.createTitledBorder("Buyed products"));
 		return panel;

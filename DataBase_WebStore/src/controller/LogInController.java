@@ -29,7 +29,7 @@ public class LogInController {
 	}
 	
 	public User reloadUser(User u){
-		return null;
+		return dao.reloadUser(u);
 	}
 
 }

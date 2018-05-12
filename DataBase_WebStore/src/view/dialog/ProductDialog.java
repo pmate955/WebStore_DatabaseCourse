@@ -52,7 +52,7 @@ public class ProductDialog extends JDialog {
 		buy.addActionListener(e -> {
 			if(user.getBalance()>= product.getPrice() && controller.buyProduct(user, product)){
 				JOptionPane.showMessageDialog(this, "Success");
-				user = log.getUser(username, password)
+				user = log.reloadUser(user);
 			} else {
 				JOptionPane.showMessageDialog(this, "You are poor :(");
 			};
@@ -84,7 +84,7 @@ public class ProductDialog extends JDialog {
 			commentBtn.addActionListener(e -> {
 				new CommentDialog(user,product,controller);
 				this.setVisible(false);
-				new ProductDialog(controller,product, user);
+				new ProductDialog(controller,product, user, log);
 				this.dispose();
 			});
 		}
@@ -97,8 +97,11 @@ public class ProductDialog extends JDialog {
 	private JPanel createProductsPanel(){
 		JPanel p = new JPanel();
 		p.setLayout(new FlowLayout(FlowLayout.CENTER));
+		int count = 0;
 		for(Product pr : controller.getProductsByBuyers(product)){
-			ProductPanel ppanel = new ProductPanel(controller, pr, this, user);
+			count++;
+			if(count > 5) break;
+			ProductPanel ppanel = new ProductPanel(controller, pr, this, user, log);
 			p.add(ppanel);
 		}
 		p.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.blue, 2), "Termékek, amit mások is megvettek", TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION, new Font("TimesRoman", Font.BOLD, 12)));

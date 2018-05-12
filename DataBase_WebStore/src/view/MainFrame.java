@@ -104,8 +104,9 @@ public class MainFrame extends JFrame {
 			}
 			Product p = input.get(i);
 			if(p != null){
-				ProductPanel pr = new ProductPanel(prod, p, null);
+				ProductPanel pr = new ProductPanel(prod, p, null, controller);
 				panel.add(pr);
+				
 			}
 		}
 		panel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.WHITE, Color.darkGray));

@@ -41,7 +41,7 @@ public class LoggedinFrame extends MainFrame {
 		JMenu category = new JMenu("Category");
 		JMenuItem profile = new JMenuItem("Profile");
 		profile.addActionListener(e -> {
-			new ProfileFrame(user,prod);
+			new ProfileFrame(user,prod, contr);
 		});
 		JMenuItem basket = new JMenuItem("Basket");
 		JMenuItem logout = new JMenuItem("Log Out");
@@ -73,7 +73,7 @@ public class LoggedinFrame extends MainFrame {
 		List<Product> products = prod.getProductsByCategory(category);
 		mainPanel.setLayout(new GridLayout(products.size()/5+1,products.size()%5+1));
 		for(Product p : products){
-			mainPanel.add(new ProductPanel(prod, p, user));
+			mainPanel.add(new ProductPanel(prod, p, user, contr));
 		}
 		mainPanel.setBorder(BorderFactory.createTitledBorder("Products by " + category));
 		this.setContentPane(mainPanel);
@@ -95,7 +95,7 @@ public class LoggedinFrame extends MainFrame {
 		
 		mainPanel.setLayout(new GridLayout(products.size()/5+1,products.size()%5+1));
 		for(Product p:products){
-			mainPanel.add(new ProductPanel(prod, p, user));
+			mainPanel.add(new ProductPanel(prod, p, user, contr));
 		}
 		mainPanel.setBorder(BorderFactory.createTitledBorder("Products by your cock"));
 		this.setContentPane(mainPanel);
