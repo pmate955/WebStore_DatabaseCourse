@@ -41,12 +41,7 @@ public class ProductController {
 	}
 	
 	public List<Product> getProductsByUser(User u){						//Lekéri egy adott felhasználó által vásárolt termékeket
-		List<Product> out = new ArrayList<Product>();
-		for(int i = 0; i < 10; i++){
-			Product p = new Product(i, "farok", 60+i, "faszok", null, 0,0);
-			out.add(p);
-		}
-		return out;
+		return dao.getProductsByUser(u);
 	}
 	
 	public boolean buyProduct(User u, Product p){
