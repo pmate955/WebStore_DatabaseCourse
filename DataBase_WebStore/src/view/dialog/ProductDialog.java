@@ -10,6 +10,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
@@ -17,16 +18,19 @@ import javax.swing.border.TitledBorder;
 import controller.ProductController;
 import model.bean.Comment;
 import model.bean.Product;
+import model.bean.User;
 import view.panels.ProductPanel;
 
 public class ProductDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private ProductController controller;
 	private Product product;
+	private User user;
 
-	public ProductDialog(ProductController controller, Product product) {
+	public ProductDialog(ProductController controller, Product product, User user) {
 		this.controller = controller;
 		this.product = product;
+		this.user = user;
 		
 		this.setTitle(product.getName());
 		this.setSize(400, 500);
@@ -41,6 +45,11 @@ public class ProductDialog extends JDialog {
 		JMenuBar menubar = new JMenuBar();
 		JMenu price = new JMenu(String.valueOf(product.getPrice()) + " huf/piece");
 		JMenu buy = new JMenu("Buy");
+		buy.addActionListener(e -> {
+			if(controller.buyProduct(user, product)){
+				//JOptionPane.showMessageDialog(parentComponent, message);
+			};
+		});
 		
 		price.setEnabled(false);
 		
@@ -70,8 +79,8 @@ public class ProductDialog extends JDialog {
 	private JPanel createProductsPanel(){
 		JPanel p = new JPanel();
 		p.setLayout(new FlowLayout(FlowLayout.CENTER));
-		for(Product pr : controller.getProductsByBuyers()){
-			ProductPanel ppanel = new ProductPanel(controller, pr, this);
+		for(Product pr : controller.getProductsByBuyers(product)){
+			ProductPanel ppanel = new ProductPanel(controller, pr, this, user);
 			p.add(ppanel);
 		}
 		p.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.blue, 2), "Termékeke, amit mások is megvettek", TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION, new Font("TimesRoman", Font.BOLD, 12)));

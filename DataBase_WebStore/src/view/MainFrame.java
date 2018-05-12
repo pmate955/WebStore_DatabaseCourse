@@ -98,7 +98,7 @@ public class MainFrame extends JFrame {
 		for(int i = 0; i < 5; i++){
 			Product p = input.get(i);
 			if(p != null){
-				ProductPanel pr = new ProductPanel(prod, p);
+				ProductPanel pr = new ProductPanel(prod, p, null);
 				panel.add(pr);
 			}
 		}

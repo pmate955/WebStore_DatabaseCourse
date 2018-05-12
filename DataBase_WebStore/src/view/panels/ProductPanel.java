@@ -13,12 +13,14 @@ import javax.swing.border.BevelBorder;
 
 import controller.ProductController;
 import model.bean.Product;
+import model.bean.User;
 import view.dialog.ProductDialog;
 
 public class ProductPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
+	private User user;
 	
-	public ProductPanel(ProductController controller, Product product, ProductDialog dialog){
+	public ProductPanel(ProductController controller, Product product, ProductDialog dialog, User user){
 		super();
 		this.setPreferredSize(new Dimension(200,250));
 		this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
@@ -40,11 +42,11 @@ public class ProductPanel extends JPanel {
 		this.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.WHITE, Color.DARK_GRAY));
 		viewProduct.addActionListener(event -> {
 			dialog.dispose();
-			new ProductDialog(controller, product);
+			new ProductDialog(controller, product, user);
 		});
 	}
 	
-	public ProductPanel(ProductController controller, Product product){
+	public ProductPanel(ProductController controller, Product product, User user){
 		super();
 		this.setPreferredSize(new Dimension(200,250));
 		this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
@@ -65,7 +67,7 @@ public class ProductPanel extends JPanel {
 		this.add(viewProduct);
 		this.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.WHITE, Color.DARK_GRAY));
 		viewProduct.addActionListener(event -> {
-			new ProductDialog(controller, product);
+			new ProductDialog(controller, product, user);
 		});
 	}
 }

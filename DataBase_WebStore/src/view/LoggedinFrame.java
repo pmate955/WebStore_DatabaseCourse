@@ -72,7 +72,7 @@ public class LoggedinFrame extends MainFrame {
 		List<Product> products = prod.getProductsByUser(user);
 		mainPanel.setLayout(new GridLayout(products.size()/5+1,products.size()%5+1));
 		for(Product p:products){
-			mainPanel.add(new ProductPanel(prod, p));
+			mainPanel.add(new ProductPanel(prod, p, user));
 		}
 		
 		this.setContentPane(mainPanel);
