@@ -19,7 +19,7 @@ public class ProductController {
 	public List<Product> getProductsByBuyers(Product p) {				//Azon termékek listája, amit az adott terméket megvásárolt felhasználók vásároltak
 		List<Product> output = new ArrayList<Product>();
 		for(int i = 0; i < 5; i++){
-			Product px = new Product(i, "farok", 100+i, "faszok", null, 0,0);
+			Product px = new Product(i, "farok", 100+i, "faszok", null);
 			output.add(px);
 		}
 		return output;

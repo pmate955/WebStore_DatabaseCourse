@@ -17,14 +17,12 @@ public class Product {
 	private int soldCount;
 	private Image image;
 
-	public Product(int iD, String name, int price, String category, Date addedDate, int availableCount, int soldCount) {
+	public Product(int iD, String name, int price, String category, Date addedDate) {
 		ID = iD;
 		this.name = name;
 		this.price = price;
 		this.category = category;
 		this.addedDate = addedDate;
-		this.availableCount = availableCount;
-		this.soldCount = soldCount;
 		try{
 			image = ImageIO.read(this.getClass().getResource("/picture/" + this.name +".png"));
 		} catch (Exception e){

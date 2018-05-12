@@ -145,14 +145,14 @@ public class Database_Dao {
 		public List<Product> getProductsByCategory(String category){		//Lekéri az adott kategóriába tartozó termékeket
 			List<Product> out = new ArrayList<Product>();
 			
-			SQL = "SELECT TERMEK.ID,TERMEK.NEV,TERMEK.AR,ARUKATEGORIA.NEV,TERMEK.DATUM,RAKTAR.DARABSZAM,RAKTAR.ELADOTT_TERMEK FROM TERMEK,ARUKATEGORIA,RAKTAR,KATEGORIA WHERE ARUKATEGORIA.NEV='" + category +"' AND KATEGORIA.TERMEK_ID = TERMEK.ID AND"
-					+ " KATEGORIA.ARUKATEGORIA_ID = ARUKATEGORIA.ID AND RAKTAR.TERMEK_ID = TERMEK.ID";
+			SQL = "SELECT TERMEK.ID,TERMEK.NEV,TERMEK.AR,ARUKATEGORIA.NEV,TERMEK.DATUM FROM TERMEK,ARUKATEGORIA,KATEGORIA WHERE ARUKATEGORIA.NEV='" + category +"' AND KATEGORIA.TERMEK_ID = TERMEK.ID AND"
+					+ " KATEGORIA.ARUKATEGORIA_ID = ARUKATEGORIA.ID";
 			
 			
 			try {
 				rs = stmt.executeQuery(SQL);
 				while(rs.next()) {
-					Product p = new Product(rs.getInt("ID"), rs.getString("NEV"), rs.getInt("AR"), category, rs.getDate("DATUM"), rs.getInt("DARABSZAM"), rs.getInt("ELADOTT_TERMEK"));
+					Product p = new Product(rs.getInt("ID"), rs.getString("NEV"), rs.getInt("AR"), category, rs.getDate("DATUM"));
 					out.add(p);
 				}
 				return out;
@@ -184,14 +184,18 @@ public class Database_Dao {
 	
 		public List<Product> getProductsByUser(User u){						//Lekéri egy adott felhasználó által vásárolt termékeket
 			List<Product> out = new ArrayList<Product>();
-			
-			SQL = "SELECT TERMEK.ID,TERMEK.NEV,TERMEK.AR,ARUKATEGORIA.NEV,TERMEK.DATUM,RAKTAR.DARABSZAM,RAKTAR.ELADOTT_TERMEK FROM TERMEK,KATEGORIA,ARUKATEGORIA,RENDELES,RAKTAR,FELHASZNALO WHERE"
-					+ " FELHASZNALO.ID ='" + u.getID() + "' AND RENDELES.FELHASZNALO_ID = FELHASZNALO.ID AND TERMEK.ID = RENDELES.TERMEK_ID AND TERMEK.ID = KATEGORIA.TERMEK_ID AND KATEGORIA.ARUKATEGORIA_ID = ARUKATEGORIA.ID AND RAKTAR.TERMEK_ID = TERMEK.ID";
+
+			SQL = "SELECT TERMEK.ID,TERMEK.NEV,TERMEK.AR,ARUKATEGORIA.NEV,TERMEK.DATUM FROM TERMEK,KATEGORIA,ARUKATEGORIA WHERE ARUKATEGORIA.ID = KATEGORIA.ARUKATEGORIA_ID AND TERMEK.ID = KATEGORIA.TERMEK_ID AND KATEGORIA.ARUKATEGORIA_ID in (SELECT ARUKATEGORIA.ID FROM RAKTAR,TERMEK,KATEGORIA,ARUKATEGORIA,RENDELES,FELHASZNALO WHERE "
+                   + " FELHASZNALO.ID ="+ u.getID() +" AND"
+                   + " RENDELES.FELHASZNALO_ID = FELHASZNALO.ID AND"
+                   + " TERMEK.ID = RENDELES.TERMEK_ID AND"
+                   + " TERMEK.ID = KATEGORIA.TERMEK_ID AND"
+                   + " KATEGORIA.ARUKATEGORIA_ID = ARUKATEGORIA.ID)"; 
 			
 			try {
 				rs = stmt.executeQuery(SQL);
 				while(rs.next()) {
-					Product p = new Product(rs.getInt("ID"), rs.getString("NEV"), rs.getInt("AR"), rs.getString("NEV"), rs.getDate("DATUM"), rs.getInt("DARABSZAM"), rs.getInt("ELADOTT_TERMEK"));
+					Product p = new Product(rs.getInt("ID"), rs.getString("NEV"), rs.getInt("AR"), rs.getString("NEV"), rs.getDate("DATUM"));
 					out.add(p);
 				}
 				return out;
