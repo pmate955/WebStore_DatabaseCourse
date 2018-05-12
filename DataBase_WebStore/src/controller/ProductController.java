@@ -44,8 +44,18 @@ public class ProductController {
 		return dao.getProductsByUser(u);
 	}
 	
-	public boolean buyProduct(User u, Product p){
+	public List<Product> getProductsByTheUser(User u){					//Azon termékek listája, amit user megvett
+		return null;
+	}
+	
+	public boolean buyProduct(User u, Product p){						//Megveszi a terméket (ár újraszámolva), felhasználó egyenlegét is frissiteni kell, raktár értéke növelés
 		return true;
 	}
+	
+	public boolean addComment(Comment c, Product p){					//Hozzáadja a kommentet
+		return true;
+	}
+	
+	
 
 }

@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.List;
 
@@ -73,6 +74,14 @@ public class LoggedinFrame extends MainFrame {
 	private void createLoggedInPanel(){
 		mainPanel = new JPanel();
 		List<Product> products = prod.getProductsByUser(user);
+		if(products.size() == 0){
+			List<String> categories = prod.getCategories();
+			for(String s : categories){
+				products.addAll(prod.getProductsByCategory(s));		
+				if(products.size()>=12) break;
+			}
+		} 
+		
 		mainPanel.setLayout(new GridLayout(products.size()/5+1,products.size()%5+1));
 		for(Product p:products){
 			mainPanel.add(new ProductPanel(prod, p, user));

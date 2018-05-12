@@ -1,9 +1,10 @@
 package view.dialog;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JDialog;
@@ -11,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.ProductController;
+import model.bean.Product;
 import model.bean.User;
 
 public class ProfileFrame extends JDialog {
@@ -24,7 +26,7 @@ public class ProfileFrame extends JDialog {
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		this.add(createDataPanel(), BorderLayout.NORTH);
-		//this.add(createProdPanel(), BorderLayout.CENTER);
+		this.add(createProdPanel(), BorderLayout.CENTER);
 		this.setVisible(true);
 	}
 
@@ -35,8 +37,19 @@ public class ProfileFrame extends JDialog {
 		name.setFont(new Font("TimesNewRoman", Font.BOLD, 16));
 		JLabel address = new JLabel(user.getAddress().toString());
 		address.setFont(new Font("TimesNewRoman", Font.BOLD, 16));
+		JLabel balance = new JLabel("Balance: " + user.getBalance() + " HUF");
+		balance.setFont(new Font("TimesNewRoman", Font.BOLD, 16));
 		panel.add(name);
 		panel.add(address);
+		panel.add(balance);
+		return panel;
+	}
+	
+	private JPanel createProdPanel(){
+		JPanel	panel = new JPanel();
+		//List<Product> products = prod.getProductsTheByUser(user);
+		//panel.setLayout(new GridLayout(products.size()/5+1,products.size()%5+1));
+		
 		return panel;
 	}
 	

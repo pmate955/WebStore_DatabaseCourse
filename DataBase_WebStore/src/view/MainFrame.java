@@ -83,7 +83,7 @@ public class MainFrame extends JFrame {
 		this.add(scroll);
 	}
 	
-	private JPanel createItemPanel(String category){
+	public JPanel createItemPanel(String category){
 		JPanel panel = new JPanel();
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		JPanel catPanel = new JPanel();

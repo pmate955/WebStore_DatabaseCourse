@@ -6,11 +6,11 @@ import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
@@ -69,7 +69,15 @@ public class ProductDialog extends JDialog {
 		lbl.setIcon(product.getImageBySize(250));
 		lbl.setAlignmentX(CENTER_ALIGNMENT);
 		panel.add(lbl);
+		JButton commentBtn = new JButton("Kommentelés");
 		panel.add(this.createProductsPanel());
+		commentBtn.setAlignmentX(CENTER_ALIGNMENT);
+		if(user != null){
+			panel.add(commentBtn);
+			commentBtn.addActionListener(e -> {
+				new CommentDialog(user,controller);
+			});
+		}
 		for(Comment c: controller.getComments(product)){
 			panel.add(this.createCommentPanel(c));
 		}
@@ -83,7 +91,7 @@ public class ProductDialog extends JDialog {
 			ProductPanel ppanel = new ProductPanel(controller, pr, this, user);
 			p.add(ppanel);
 		}
-		p.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.blue, 2), "Termékeke, amit mások is megvettek", TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION, new Font("TimesRoman", Font.BOLD, 12)));
+		p.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.blue, 2), "Termékek, amit mások is megvettek", TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION, new Font("TimesRoman", Font.BOLD, 12)));
 		return p;
 	}
 
