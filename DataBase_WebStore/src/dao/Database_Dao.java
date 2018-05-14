@@ -16,6 +16,13 @@ import oracle.jdbc.pool.OracleDataSource;
 
 public class Database_Dao {
 
+	public static String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	public static String usrLocal = "SYSTEM";
+	public static String passLocal = "admin";
+	public static String urlKab = "jdbc:oracle:thin:H672651/H672651@localhost:4000:kabinet";
+	public static String usrKab = "H672651";
+	public static boolean isLocalhost = false;
+	
 	private ResultSet rs;
 	private Statement stmt;
 	private PreparedStatement prestmt;
@@ -32,8 +39,8 @@ public class Database_Dao {
 			OracleDataSource ods = new OracleDataSource();
 			Class.forName("oracle.jdbc.OracleDriver");
 
-			ods.setURL("jdbc:oracle:thin:@localhost:1521:xe");
-			conn = ods.getConnection("SYSTEM", "admin");
+			ods.setURL(isLocalhost?url:urlKab);
+			conn = ods.getConnection(isLocalhost?"SYSTEM":"H672651", isLocalhost?"admin":"H672651");
 			stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		} catch (Exception e) {
 			e.printStackTrace();
