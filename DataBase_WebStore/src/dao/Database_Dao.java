@@ -32,8 +32,8 @@ public class Database_Dao {
 			OracleDataSource ods = new OracleDataSource();
 			Class.forName("oracle.jdbc.OracleDriver");
 
-			ods.setURL("jdbc:oracle:thin:H672651/H672651@localhost:4000:kabinet");
-			conn = ods.getConnection("H672651", "H672651");
+			ods.setURL("jdbc:oracle:thin:@localhost:1521:xe");
+			conn = ods.getConnection("SYSTEM", "admin");
 			stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		} catch (Exception e) {
 			e.printStackTrace();
