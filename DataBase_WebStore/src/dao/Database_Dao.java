@@ -419,4 +419,19 @@ public class Database_Dao {
 		
 		return false;
 	}
+
+	public int getQuantity(Product p) {
+		SQL = "SELECT DARABSZAM FROM RAKTAR WHERE TERMEK_ID = " + p.getID();
+		
+		try {
+			prestmt = conn.prepareStatement(SQL);
+			int result = prestmt.executeUpdate();
+			
+			return result;
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
 }

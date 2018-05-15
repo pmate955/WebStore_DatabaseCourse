@@ -53,7 +53,7 @@ public class ProductController {
 	}
 
 	public int getQuantity(Product p){
-		return 0;
+		return dao.getQuantity(p);
 	}
 	
 	public List<Product> getAllProducts(){
