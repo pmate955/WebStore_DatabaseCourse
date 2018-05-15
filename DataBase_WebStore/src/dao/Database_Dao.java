@@ -386,10 +386,11 @@ public class Database_Dao {
 	
 	public boolean addCategory(String category){
 		
-		SQL = "INSERT INTO ARUKATEGORIA WHERE ARUKATEGORIA.NEV='" + category + "'";
+		SQL = "INSERT INTO ARUKATEGORIA(NEV) VALUES(?)";
 		
 		try {
 			prestmt = conn.prepareStatement(SQL);
+			prestmt.setString(1, category);
 			int result = prestmt.executeUpdate();
 			return result == 1;
 		} catch (SQLException e) {
