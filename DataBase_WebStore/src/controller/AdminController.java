@@ -12,7 +12,7 @@ public class AdminController {
 	}
 	
 	public boolean addProduct(Product p, int quantity){
-		return true;
+		return dao.addProduct(p, quantity);
 	}
 
 	public boolean addCategory(String category){

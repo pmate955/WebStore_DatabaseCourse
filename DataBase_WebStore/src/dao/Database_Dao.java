@@ -398,4 +398,24 @@ public class Database_Dao {
 		return false;
 	}
 	
+	public boolean addProduct(Product p, int quantity){
+		SQL = "INSERT INTO TERMEK(ID, NEV, DATUM, AR) VALUES((SELECT MAX(ID) FROM TERMEK) + 1, '" + p.getName() + "', " + p.getAddedDate() + ", " + p.getPrice() + ")";
+		SQL2 = "INSERT INTO KATEGORIA(TERMEK_ID, ARUKATEGORIA_ID) VALUES(SELECT MAX(ID) FROM TERMEK, SELECT ID FROM ARUKATEGRIA WHERE NEV = '" + p.getCategory() + "')";
+		SQL3 = "INSERT INTO RAKTAR(TERMEK_ID, DARABSZAM, ELADOTT_SZAM) VALUES(SELECT MAX(ID) FROM TERMEK, " + quantity + ", 0)";
+		
+		try {
+			prestmt = conn.prepareStatement(SQL);
+			int result = prestmt.executeUpdate();
+			prestmt = conn.prepareStatement(SQL2);
+			int result2 = prestmt.executeUpdate();
+			prestmt = conn.prepareStatement(SQL3);
+			int result3 = prestmt.executeUpdate();
+			
+			return (result == 1) && (result2 == 1) && (result3 == 1);
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 }
