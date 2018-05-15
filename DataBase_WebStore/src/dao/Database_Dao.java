@@ -467,4 +467,20 @@ public class Database_Dao {
 		
 		return null;
 	}
+
+	public boolean updateQty(Product p, int quantity) {
+		SQL = "UPDATE RAKTAR SET DARABSZAM = " + quantity + " WHERE TERMEK_ID = " + p.getID();
+		
+		
+		try {
+			prestmt = conn.prepareStatement(SQL);
+			int result = prestmt.executeUpdate();
+			
+			return result == 1;
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 }

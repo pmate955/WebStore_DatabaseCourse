@@ -27,7 +27,7 @@ public class AdminController {
 	}
 	
 	public boolean updateQty(Product p, int quantity){
-		return true;
+		return dao.updateQty(p, quantity);
 	}
 	
 	public List<Order> getOrders(){
