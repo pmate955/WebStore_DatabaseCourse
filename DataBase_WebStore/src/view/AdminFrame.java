@@ -60,20 +60,23 @@ public class AdminFrame extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		panel.add(new JLabel("Product name: "));
-		JTextField name = new JTextField(10);
+		List<Product> prods = prod.getAllProducts();
+		JComboBox name = new JComboBox();
+		for(Product p:prods){
+			name.addItem(p.getName());
+		}
+		
 		panel.add(name);
 		JButton addBtn = new JButton("Delete");
 		panel.add(addBtn);
 		addBtn.addActionListener(e -> {
-			if(name.getText().isEmpty()){
-				JOptionPane.showMessageDialog(this, "Empty field");
-			} else {
-				if(contr.deleteProduct(name.getText())){
+			 
+				if(contr.deleteProduct(prods.get(name.getSelectedIndex()))){
 					JOptionPane.showMessageDialog(this, "Delete succesful", "Done", JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					JOptionPane.showMessageDialog(this, "Database error :(");
 				}
-			}
+			
 		});
 		panel.setBorder(BorderFactory.createTitledBorder("Delete product"));
 		return panel;
