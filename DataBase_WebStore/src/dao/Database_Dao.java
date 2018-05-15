@@ -439,4 +439,26 @@ public class Database_Dao {
 		
 		return 0;
 	}
+
+	public List<Product> getAllProduct() {
+		SQL = "SELECT TERMEK.ID,TERMEK.NEV,TERMEK.AR,ARUKATEGORIA.NEV,TERMEK.DATUM FROM TERMEK,ARUKATEGORIA,KATEGORIA WHERE "
+				+ " KATEGORIA.TERMEK_ID = TERMEK.ID AND"
+				+ " KATEGORIA.ARUKATEGORIA_ID = ARUKATEGORIA.ID";
+		List<Product> out = new ArrayList<Product>();
+		try {
+			rs = stmt.executeQuery(SQL);
+			
+			while(rs.next()) {
+				Product p = new Product(rs.getInt("ID"), rs.getString("NEV"), rs.getInt("AR"), rs.getString("NEV"),
+						rs.getDate("DATUM"));
+				out.add(p);
+			}
+			
+			return out;
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 }

@@ -57,7 +57,7 @@ public class ProductController {
 	}
 	
 	public List<Product> getAllProducts(){
-		return null;
+		return dao.getAllProduct();
 	}
 	
 }
