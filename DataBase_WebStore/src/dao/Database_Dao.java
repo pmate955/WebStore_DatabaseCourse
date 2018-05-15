@@ -371,7 +371,7 @@ public class Database_Dao {
 
 	public boolean deleteProduct(String productName){
 		
-		SQL = "DELETE TERMEK WHERE TERMEK.NEV=" + productName;
+		SQL = "DELETE TERMEK WHERE TERMEK.NEV='" + productName + "'";
 		
 		try {
 			prestmt = conn.prepareStatement(SQL);
