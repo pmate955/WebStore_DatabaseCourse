@@ -102,6 +102,7 @@ public class AdminFrame extends JFrame {
 		JTextField field = new JTextField();
 		field.setText(""+prod.getQuantity(prods.get(name.getSelectedIndex())));
 		name.addActionListener(e ->{
+			if(name.getSelectedIndex()<0) name.setSelectedIndex(0);
 			field.setText(""+prod.getQuantity(prods.get(name.getSelectedIndex())));
 		});
 		panel.add(field);
@@ -124,11 +125,7 @@ public class AdminFrame extends JFrame {
 			 
 				if(contr.deleteProduct(prods.get(name.getSelectedIndex()))){
 					JOptionPane.showMessageDialog(this, "Delete succesful", "Done", JOptionPane.INFORMATION_MESSAGE);
-					name.removeAllItems();
-					prods= prod.getAllProducts();
-					for(Product p:prods){
-						name.addItem(p.getName());
-					}
+					name.removeItemAt(name.getSelectedIndex());
 					this.repaint();
 				} else {
 					JOptionPane.showMessageDialog(this, "Database error :(");
