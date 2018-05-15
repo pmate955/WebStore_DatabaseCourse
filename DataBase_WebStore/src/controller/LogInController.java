@@ -33,7 +33,7 @@ public class LogInController {
 	}
 	
 	public boolean addMoney(User u, int money){
-		return true;
+		return dao.addMoney(u, money);
 	}
 
 }

@@ -1,8 +1,15 @@
 package controller;
 
+import dao.Database_Dao;
 import model.bean.Product;
 
 public class AdminController {
+	
+	private Database_Dao dao;
+	
+	public AdminController() {
+		this.dao = new Database_Dao();
+	}
 	
 	public boolean addProduct(Product p){
 		return true;

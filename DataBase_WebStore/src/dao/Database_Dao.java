@@ -352,5 +352,23 @@ public class Database_Dao {
 			return null;
 		}
 	}
+	
+	public boolean addMoney(User u, int money){
+		
+		int NewBalance = u.getBalance() + money;
+		
+		SQL = "UPDATE FELHASZNALO SET EGYENLEG=" + NewBalance + " WHERE FELHASZNALO.ID=" + u.getID();
+		
+		try {
+			prestmt = conn.prepareStatement(SQL);
+			int result = prestmt.executeUpdate();
+			return result == 1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return false;
+	}
 
 }
