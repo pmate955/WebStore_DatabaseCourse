@@ -51,13 +51,18 @@ public class ProfileFrame extends JDialog {
 		JButton addMoney = new JButton("Get some money");
 		addMoney.addActionListener(e -> {
 			String money = JOptionPane.showInputDialog(this, "How much money you need?");
-			if(!con.addMoney(user, Integer.parseInt(money))){
-				JOptionPane.showMessageDialog(this, "Something bad happened");
-			} else {
-				this.setVisible(false);
-				new ProfileFrame(user,prod,con);
-				this.dispose();
-			};
+			try{
+				if(!con.addMoney(user, Integer.parseInt(money))){
+					JOptionPane.showMessageDialog(this, "Something bad happened");
+				} else {
+					this.setVisible(false);
+					new ProfileFrame(user,prod,con);
+					this.dispose();
+				};
+			} catch (NumberFormatException ex){
+				JOptionPane.showMessageDialog(this, "Number pls");
+			}
+			
 		});
 		
 		panel.add(name);

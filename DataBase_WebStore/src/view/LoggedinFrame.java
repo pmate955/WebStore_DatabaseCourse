@@ -1,7 +1,8 @@
 package view;
 
-import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -17,27 +18,39 @@ import model.bean.User;
 import view.dialog.ProfileFrame;
 import view.panels.ProductPanel;
 
-public class LoggedinFrame extends MainFrame {
+public class LoggedinFrame extends MainFrame implements Runnable {
 	private static final long serialVersionUID = 1L;
 	private User user;
 	LogInController contr;
 	ProductController prod;
 	private JPanel mainPanel;
+	private JMenu menu;
+	private Thread update;
+	private boolean isRun = true;
 
 	public LoggedinFrame(LogInController controller, ProductController prod, User user) {
 		super(controller, prod);
-		this.user = user;
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		this.user = controller.reloadUser(user);
 		this.contr = controller;
 		this.prod = prod;
 		this.setJMenuBar(createLoggedInMenuBar());
 		this.createLoggedInPanel();
 		this.pack();
+		this.addWindowListener(new WindowAdapter() {
+		    @Override
+		    public void windowClosing(WindowEvent e) {
+		       isRun = false;
+		    }
+		});
+		update = new Thread(this);
+		update.start();
 	}
 	
 	
 	protected JMenuBar createLoggedInMenuBar() {
 		JMenuBar menubar = new JMenuBar();
-		JMenu menu = new JMenu(user.getUserName() + " | " + user.getBalance() + " HUF");
+		menu = new JMenu(user.getUserName() + " | " + user.getBalance() + " HUF");
 		JMenu category = new JMenu("Category");
 		JMenuItem profile = new JMenuItem("Profile");
 		profile.addActionListener(e -> {
@@ -99,5 +112,22 @@ public class LoggedinFrame extends MainFrame {
 		}
 		mainPanel.setBorder(BorderFactory.createTitledBorder("Products by your orders"));
 		this.setContentPane(mainPanel);
+	}
+
+
+	@Override
+	public void run() {
+		while(this.isVisible()){
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			user = contr.reloadUser(user);
+			menu.setText(user.getUserName() + " | " + user.getBalance() + " HUF");
+			System.out.println("Update");
+		}
+		
 	}
 }
