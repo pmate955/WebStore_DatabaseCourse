@@ -97,7 +97,7 @@ public class LoggedinFrame extends MainFrame {
 		for(Product p:products){
 			mainPanel.add(new ProductPanel(prod, p, user, contr));
 		}
-		mainPanel.setBorder(BorderFactory.createTitledBorder("Products by your cock"));
+		mainPanel.setBorder(BorderFactory.createTitledBorder("Products by your orders"));
 		this.setContentPane(mainPanel);
 	}
 }

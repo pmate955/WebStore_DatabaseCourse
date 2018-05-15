@@ -31,5 +31,9 @@ public class LogInController {
 	public User reloadUser(User u){
 		return dao.reloadUser(u);
 	}
+	
+	public boolean addMoney(User u, int money){
+		return true;
+	}
 
 }

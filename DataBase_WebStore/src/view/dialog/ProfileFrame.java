@@ -8,8 +8,10 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controller.LogInController;
@@ -46,9 +48,22 @@ public class ProfileFrame extends JDialog {
 		address.setFont(new Font("TimesNewRoman", Font.BOLD, 16));
 		JLabel balance = new JLabel("Balance: " + user.getBalance() + " HUF");
 		balance.setFont(new Font("TimesNewRoman", Font.BOLD, 16));
+		JButton addMoney = new JButton("Get some money");
+		addMoney.addActionListener(e -> {
+			String money = JOptionPane.showInputDialog(this, "How much money you need?");
+			if(!con.addMoney(user, Integer.parseInt(money))){
+				JOptionPane.showMessageDialog(this, "Something bad happened");
+			} else {
+				this.setVisible(false);
+				new ProfileFrame(user,prod,con);
+				this.dispose();
+			};
+		});
+		
 		panel.add(name);
 		panel.add(address);
 		panel.add(balance);
+		panel.add(addMoney);
 		return panel;
 	}
 	
