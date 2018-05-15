@@ -369,18 +369,23 @@ public class Database_Dao {
 		return false;
 	}
 
-	public boolean deleteProduct(String productName){
+	public boolean deleteProduct(Product p){
 		
-		SQL = "DELETE TERMEK WHERE TERMEK.NEV='" + productName + "'";
+		SQL = "DELETE KATEGORIA WHERE KATEGORIA.TERMEK_ID=" + p.getID();
+		SQL2 = "DELETE RAKTAR WHERE RAKTAR.TERMEK_ID=" + p.getID() + ")";
+		SQL3 = "DELETE TERMEK WHERE TERMEK.NEV='" + p.getName() + "'";
 		
 		try {
 			prestmt = conn.prepareStatement(SQL);
 			int result = prestmt.executeUpdate();
-			return result == 1;
+			prestmt = conn.prepareStatement(SQL2);
+			int result2 = prestmt.executeUpdate();
+			prestmt = conn.prepareStatement(SQL3);
+			int result3 = prestmt.executeUpdate();
+			return (result == 1) && (result2 == 1) && (result3 == 1);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return false;
 	}
 	

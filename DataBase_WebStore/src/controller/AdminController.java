@@ -19,7 +19,7 @@ public class AdminController {
 		return dao.addCategory(category);
 	}
 	
-	public boolean deleteProduct(String productName){
-		return dao.deleteProduct(productName);
+	public boolean deleteProduct(Product p){
+		return dao.deleteProduct(p);
 	}
 }
