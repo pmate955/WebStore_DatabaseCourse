@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.sql.Date;
@@ -16,11 +17,13 @@ import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import controller.AdminController;
 import controller.LogInController;
 import controller.ProductController;
+import model.bean.Order;
 import model.bean.Product;
 import model.bean.User;
 
@@ -52,9 +55,33 @@ public class AdminFrame extends JFrame {
 		mainPanel.add(createAddPanel());
 		mainPanel.add(createCategoryPanel());
 		mainPanel.add(createDeletePanel());
+		mainPanel.add(createOrderPanel());
 		this.add(mainPanel);
 		this.pack();
 		this.setVisible(true);
+	}
+
+	private Component createOrderPanel() {
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		String[] columnNames = {"Date","Username",
+                "Product name",
+                "Status",
+                "Price"};
+		List<Order> input = contr.getOrders();
+		String[][] datas = new String[5][input.size()];
+		for(int i = 0; i < input.size(); i++){
+			Order o = input.get(i);
+			datas[0][i] = o.getOrderDate().toString();
+			datas[1][i] = o.getUser().getUserName();
+			datas[2][i] = o.getProduct().getName();
+			datas[3][i] = o.getStatus()+ " ";
+			datas[4][i] = o.getProduct().getPrice() + " ";
+		}
+		JTable table = new JTable(datas,columnNames);
+		panel.add(table, BorderLayout.NORTH);
+		panel.setBorder(BorderFactory.createTitledBorder("Orders"));
+		return panel;
 	}
 
 	private JPanel createDeletePanel() {
@@ -83,6 +110,8 @@ public class AdminFrame extends JFrame {
 				int num = Integer.parseInt(field.getText());
 				if(!contr.updateQty(prods.get(name.getSelectedIndex()), num)){
 					JOptionPane.showMessageDialog(this, "Database error :(");
+				} else {
+					JOptionPane.showMessageDialog(this, "Update succesful", "Done", JOptionPane.INFORMATION_MESSAGE);
 				}
 			} catch (NumberFormatException ex){
 				JOptionPane.showMessageDialog(this, "Not a number");

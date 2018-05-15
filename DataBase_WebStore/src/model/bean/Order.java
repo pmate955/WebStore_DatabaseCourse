@@ -1,16 +1,16 @@
 package model.bean;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Order {
 	private User user;
 	private Product product;
-	private int status;
+	private String status;
 	private Date orderDate;
 	private Date payDate;
 	private int payMode;
 	
-	public Order(User user, Product product, int status, Date orderDate, Date payDate, int payMode) {
+	public Order(User user, Product product, String status, Date orderDate, Date payDate, int payMode) {
 		this.user = user;
 		this.product = product;
 		this.status = status;
@@ -35,14 +35,11 @@ public class Order {
 		this.product = product;
 	}
 
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
+	
 	public Date getOrderDate() {
 		return orderDate;
 	}
@@ -75,7 +72,7 @@ public class Order {
 		result = prime * result + ((payDate == null) ? 0 : payDate.hashCode());
 		result = prime * result + payMode;
 		result = prime * result + ((product == null) ? 0 : product.hashCode());
-		result = prime * result + status;
+		
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}

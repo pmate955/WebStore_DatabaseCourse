@@ -3,6 +3,9 @@ package view.dialog;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -34,7 +37,7 @@ public class ProductDialog extends JDialog {
 	public ProductDialog(ProductController controller, Product product, User user, LogInController log) {
 		this.controller = controller;
 		this.product = product;
-		this.user = user;
+		this.user = log.reloadUser(user);
 		this.log = log;
 		this.setTitle(product.getName());
 		this.setSize(400, 500);
@@ -43,6 +46,7 @@ public class ProductDialog extends JDialog {
 		this.pack();
 		this.setVisible(true);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		
 	}
 
 	private JMenuBar createMenuBar() {
@@ -50,9 +54,17 @@ public class ProductDialog extends JDialog {
 		JMenu price = new JMenu(String.valueOf(product.getPrice()) + " huf/piece");
 		JButton buy = new JButton("Buy");
 		buy.addActionListener(e -> {
+			if(user == null) {
+				JOptionPane.showMessageDialog(this, "You have to log in to buy!");
+				return;
+			}
 			if(user.getBalance()>= product.getPrice() && controller.buyProduct(user, product)){
 				JOptionPane.showMessageDialog(this, "Success");
 				user = log.reloadUser(user);
+				this.setVisible(false);
+				new ProductDialog(controller,product, user, log);
+				this.dispose();
+				
 			} else {
 				JOptionPane.showMessageDialog(this, "You are poor :(");
 			};
@@ -78,7 +90,7 @@ public class ProductDialog extends JDialog {
 		panel.add(lbl);
 		panel.add(new JLabel("Quantity: " + controller.getQuantity(product)));
 		
-		JButton commentBtn = new JButton("Kommentelés");
+		JButton commentBtn = new JButton("Write comment");
 		panel.add(this.createProductsPanel());
 		commentBtn.setAlignmentX(CENTER_ALIGNMENT);
 		if(user != null){
@@ -125,4 +137,6 @@ public class ProductDialog extends JDialog {
 		out.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		return out;
 	}
+
+	
 }
