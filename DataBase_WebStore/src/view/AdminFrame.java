@@ -104,7 +104,7 @@ public class AdminFrame extends JFrame {
 
 	public JPanel createAddPanel() {
 		JPanel out = new JPanel();
-		out.setLayout(new GridLayout(2,4));
+		out.setLayout(new GridLayout(2,6));
 		out.add(new JLabel("Name: "));
 		JTextField nameField = new JTextField();
 		out.add(nameField);
@@ -115,17 +115,20 @@ public class AdminFrame extends JFrame {
 		JComboBox<String> categ = new JComboBox<String>();
 		List<String> allcategory = prod.getCategories();
 		for(String s : allcategory) categ.addItem(s);
+
+		JTextField qtity = new JTextField();
 		out.add(categ);
 		JButton addBtn = new JButton("Add product");
 		addBtn.addActionListener(e -> {
-			if(nameField.getText().isEmpty()){
+			if(nameField.getText().isEmpty() || qtity.getText().isEmpty()){
 				JOptionPane.showMessageDialog(this, "Empty field");
 			} else {
 				try {
 					int price = Integer.parseInt(priceField.getText());
 					Date d = new Date(Calendar.getInstance().getTimeInMillis());
 					Product p = new Product(0, nameField.getText(), price, (String)categ.getSelectedItem(), d);
-					if(contr.addProduct(p)){
+					int quan = Integer.parseInt(qtity.getText());
+					if(contr.addProduct(p, quan)){
 						JOptionPane.showMessageDialog(this, "Adding succesful", "Done", JOptionPane.INFORMATION_MESSAGE);
 					} else {
 						JOptionPane.showMessageDialog(this, "Database error :(");
@@ -135,9 +138,11 @@ public class AdminFrame extends JFrame {
 				}
 			}
 		});
-		out.add(new JLabel());
-		out.add(addBtn);
 		
+		out.add(new JLabel("Quantity:"));
+		
+		out.add(priceField);
+		out.add(addBtn);
 		out.setBorder(BorderFactory.createTitledBorder("Add product"));
 		return out;
 	}

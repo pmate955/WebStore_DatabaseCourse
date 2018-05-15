@@ -11,7 +11,7 @@ public class AdminController {
 		this.dao = new Database_Dao();
 	}
 	
-	public boolean addProduct(Product p){
+	public boolean addProduct(Product p, int quantity){
 		return true;
 	}
 
