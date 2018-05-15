@@ -399,9 +399,9 @@ public class Database_Dao {
 	}
 	
 	public boolean addProduct(Product p, int quantity){
-		SQL = "INSERT INTO TERMEK(ID, NEV, DATUM, AR) VALUES((SELECT MAX(ID) FROM TERMEK) + 1, '" + p.getName() + "', " + p.getAddedDate() + ", " + p.getPrice() + ")";
-		SQL2 = "INSERT INTO KATEGORIA(TERMEK_ID, ARUKATEGORIA_ID) VALUES(SELECT MAX(ID) FROM TERMEK, SELECT ID FROM ARUKATEGRIA WHERE NEV = '" + p.getCategory() + "')";
-		SQL3 = "INSERT INTO RAKTAR(TERMEK_ID, DARABSZAM, ELADOTT_SZAM) VALUES(SELECT MAX(ID) FROM TERMEK, " + quantity + ", 0)";
+		SQL = "INSERT INTO TERMEK(ID, NEV, DATUM, AR) VALUES((SELECT MAX(ID) FROM TERMEK) + 1, '" + p.getName() + "', SYSDATE, " + p.getPrice() + ")";
+		SQL2 = "INSERT INTO KATEGORIA(TERMEK_ID, ARUKATEGORIA_ID) VALUES((SELECT MAX(ID) FROM TERMEK), (SELECT ID FROM ARUKATEGORIA WHERE NEV = '" + p.getCategory() + "'))";
+		SQL3 = "INSERT INTO RAKTAR(TERMEK_ID, DARABSZAM, ELADOTT_TERMEK) VALUES((SELECT MAX(ID) FROM TERMEK), " + quantity + ", 0)";
 		
 		try {
 			prestmt = conn.prepareStatement(SQL);
