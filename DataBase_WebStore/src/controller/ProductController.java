@@ -56,4 +56,8 @@ public class ProductController {
 		return 0;
 	}
 	
+	public List<Product> getAllProducts(){
+		return null;
+	}
+	
 }

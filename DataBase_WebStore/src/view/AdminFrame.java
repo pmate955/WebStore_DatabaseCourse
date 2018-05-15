@@ -130,6 +130,7 @@ public class AdminFrame extends JFrame {
 					int quan = Integer.parseInt(qtity.getText());
 					if(contr.addProduct(p, quan)){
 						JOptionPane.showMessageDialog(this, "Adding succesful", "Done", JOptionPane.INFORMATION_MESSAGE);
+						
 					} else {
 						JOptionPane.showMessageDialog(this, "Database error :(");
 					}
