@@ -487,11 +487,11 @@ public class Database_Dao {
 	}
 
 	public List<Order> getOrders() {
-		SQL = "SELECT FELHASZNALO.ID, FELHASZNALO.FELHASZNALONEV, FELHASZNALO.VEZETEKNEV,"
+		SQL = "SELECT FELHASZNALO.ID AS FID, FELHASZNALO.FELHASZNALONEV, FELHASZNALO.VEZETEKNEV,"
 				+ "FELHASZNALO.KERESZTNEV, FELHASZNALO.EMAIL, FELHASZNALO.IRANYITOSZAM,"
 				+ "FELHASZNALO.VAROS, FELHASZNALO.UTCA, FELHASZNALO.HAZSZAM,"
-				+ "FELHASZNALO.JOGOSULTSAG, FELHASZNALO.EGYENLEG, FELHASZNALO.KEDVEZMENYPONT, TERMEK.ID,TERMEK.NEV, "
-				+ "TERMEK.AR,ARUKATEGORIA.NEV, TERMEK.DATUM, RENDELES.PENZUGY_ID, RENDELES.RENDELESI_IDOPONT, RENDELES.STATUSZ, "
+				+ "FELHASZNALO.JOGOSULTSAG, FELHASZNALO.EGYENLEG, FELHASZNALO.KEDVEZMENYPONT, TERMEK.ID AS PID, TERMEK.NEV, "
+				+ "TERMEK.AR,ARUKATEGORIA.NEV, TERMEK.DATUM, RENDELES.RENDELESI_IDOPONT, RENDELES.STATUSZ, "
 				+ "RENDELES.FIZETESI_MOD, PENZUGY.FIZETESI_IDOPONT, PENZUGY.FIZETESI_MOD FROM FELHASZNALO, TERMEK, "
 				+ "KATEGORIA, ARUKATEGORIA WHERE "
 				+ " KATEGORIA.TERMEK_ID = TERMEK.ID AND "
@@ -506,12 +506,12 @@ public class Database_Dao {
 			rs = stmt.executeQuery(SQL);
 			
 			while(rs.next()) {
-				User user = new User(rs.getInt("ID"), rs.getString("FELHASZNALONEV"), rs.getString("VEZETEKNEV"), rs.getString("KERESZTNEV"), rs.getString("EMAIL"),
+				User user = new User(rs.getInt("FID"), rs.getString("FELHASZNALONEV"), rs.getString("VEZETEKNEV"), rs.getString("KERESZTNEV"), rs.getString("EMAIL"),
 						rs.getInt("IRANYITOSZAM"), rs.getString("VAROS"), rs.getString("UTCA"),
 						rs.getString("HAZSZAM"), rs.getInt("EGYENLEG"), rs.getInt("KEDVEZMENYPONT"), 
 						rs.getInt("TORZSVASARLO") == 0);
 				
-				Product p = new Product(rs.getInt("ID"), rs.getString("NEV"), rs.getInt("AR"), rs.getString("NEV"),
+				Product p = new Product(rs.getInt("PID"), rs.getString("NEV"), rs.getInt("AR"), rs.getString("NEV"),
 						rs.getDate("DATUM"));
 				
 				Order order = new Order(user, p, rs.getInt("STATUSZ"), rs.getDate("RENDELESI.IDOPONT"), rs.getDate("FIZETESI_IDOPONT"), rs.getInt("FIZETESI_MOD"));
