@@ -424,10 +424,10 @@ public class Database_Dao {
 		SQL = "SELECT DARABSZAM FROM RAKTAR WHERE TERMEK_ID = " + p.getID();
 		
 		try {
-			prestmt = conn.prepareStatement(SQL);
-			int result = prestmt.executeUpdate();
+			rs = stmt.executeQuery(SQL);
+			rs.next();
 			
-			return result;
+			return rs.getInt("DARABSZAM");
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
