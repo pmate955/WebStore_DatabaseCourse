@@ -37,7 +37,8 @@ public class ProductDialog extends JDialog {
 	public ProductDialog(ProductController controller, Product product, User user, LogInController log) {
 		this.controller = controller;
 		this.product = product;
-		this.user = log.reloadUser(user);
+		if(user != null)this.user = log.reloadUser(user); 
+		else this.user = user;
 		this.log = log;
 		this.setTitle(product.getName());
 		this.setSize(400, 500);
