@@ -9,7 +9,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.bean.Address;
 import model.bean.Comment;
+import model.bean.Order;
 import model.bean.Product;
 import model.bean.User;
 import oracle.jdbc.pool.OracleDataSource;
@@ -482,5 +484,45 @@ public class Database_Dao {
 		}
 		
 		return false;
+	}
+
+	public List<Order> getOrders() {
+		SQL = "SELECT FELHASZNALO.ID, FELHASZNALO.FELHASZNALONEV, FELHASZNALO.VEZETEKNEV,"
+				+ "FELHASZNALO.KERESZTNEV, FELHASZNALO.EMAIL, FELHASZNALO.IRANYITOSZAM,"
+				+ "FELHASZNALO.VAROS, FELHASZNALO.UTCA, FELHASZNALO.HAZSZAM,"
+				+ "FELHASZNALO.JOGOSULTSAG, FELHASZNALO.EGYENLEG, FELHASZNALO.KEDVEZMENYPONT, TERMEK.ID,TERMEK.NEV, "
+				+ "TERMEK.AR,ARUKATEGORIA.NEV, TERMEK.DATUM, RENDELES.PENZUGY_ID, RENDELES.RENDELESI_IDOPONT, RENDELES.STATUSZ, "
+				+ "RENDELES.FIZETESI_MOD, PENZUGY.FIZETESI_IDOPONT, PENZUGY.FIZETESI_MOD FROM FELHASZNALO, TERMEK, "
+				+ "KATEGORIA, ARUKATEGORIA WHERE "
+				+ " KATEGORIA.TERMEK_ID = TERMEK.ID AND "
+				+ " KATEGORIA.ARUKATEGORIA_ID = ARUKATEGORIA.ID AND"
+				+ " RENDELES.FELHASZNALO_ID = FELHASZNALO.ID AND "
+				+ " RENDELES.TERMEK_ID = TERMEK.ID AND "
+				+ " RENDELES.PENZUGY_ID = PENZUGY.ID ";
+		
+		List<Order> out = new ArrayList<Order>();
+		
+		try {
+			rs = stmt.executeQuery(SQL);
+			
+			while(rs.next()) {
+				User user = new User(rs.getInt("ID"), rs.getString("FELHASZNALONEV"), rs.getString("VEZETEKNEV"), rs.getString("KERESZTNEV"), rs.getString("EMAIL"),
+						rs.getInt("IRANYITOSZAM"), rs.getString("VAROS"), rs.getString("UTCA"),
+						rs.getString("HAZSZAM"), rs.getInt("EGYENLEG"), rs.getInt("KEDVEZMENYPONT"), 
+						rs.getInt("TORZSVASARLO") == 0);
+				
+				Product p = new Product(rs.getInt("ID"), rs.getString("NEV"), rs.getInt("AR"), rs.getString("NEV"),
+						rs.getDate("DATUM"));
+				
+				Order order = new Order(user, p, rs.getInt("STATUSZ"), rs.getDate("RENDELESI.IDOPONT"), rs.getDate("FIZETESI_IDOPONT"), rs.getInt("FIZETESI_MOD"));
+				
+				out.add(order);
+			}
+			
+			return out;
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

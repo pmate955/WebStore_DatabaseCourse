@@ -31,6 +31,6 @@ public class AdminController {
 	}
 	
 	public List<Order> getOrders(){
-		return null;
+		return dao.getOrders();
 	}
 }
