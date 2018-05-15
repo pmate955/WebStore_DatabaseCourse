@@ -52,4 +52,8 @@ public class ProductController {
 		return dao.addComment(c, p, u);
 	}
 
+	public int getQuantity(Product p){
+		return 0;
+	}
+	
 }

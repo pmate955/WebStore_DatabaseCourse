@@ -126,7 +126,6 @@ public class LoggedinFrame extends MainFrame implements Runnable {
 			}
 			user = contr.reloadUser(user);
 			menu.setText(user.getUserName() + " | " + user.getBalance() + " HUF");
-			System.out.println("Update");
 		}
 		
 	}
