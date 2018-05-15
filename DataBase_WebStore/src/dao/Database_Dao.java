@@ -366,9 +366,22 @@ public class Database_Dao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
 		return false;
 	}
 
+	public boolean deleteProduct(String productName){
+		
+		SQL = "DELETE TERMEK WHERE TERMEK.NEV=" + productName;
+		
+		try {
+			prestmt = conn.prepareStatement(SQL);
+			int result = prestmt.executeUpdate();
+			return result == 1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
 }

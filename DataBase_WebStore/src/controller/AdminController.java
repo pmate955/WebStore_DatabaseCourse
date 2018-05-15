@@ -20,6 +20,6 @@ public class AdminController {
 	}
 	
 	public boolean deleteProduct(String productName){
-		return true;
+		return dao.deleteProduct(productName);
 	}
 }
