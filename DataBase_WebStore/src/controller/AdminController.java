@@ -1,6 +1,9 @@
 package controller;
 
+import java.util.List;
+
 import dao.Database_Dao;
+import model.bean.Order;
 import model.bean.Product;
 
 public class AdminController {
@@ -25,5 +28,9 @@ public class AdminController {
 	
 	public boolean updateQty(Product p, int quantity){
 		return true;
+	}
+	
+	public List<Order> getOrders(){
+		return null;
 	}
 }
