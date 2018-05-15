@@ -384,4 +384,18 @@ public class Database_Dao {
 		return false;
 	}
 	
+	public boolean addCategory(String category){
+		
+		SQL = "INSERT INTO ARUKATEGORIA WHERE ARUKATEGORIA.NEV='" + category + "'";
+		
+		try {
+			prestmt = conn.prepareStatement(SQL);
+			int result = prestmt.executeUpdate();
+			return result == 1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 }
