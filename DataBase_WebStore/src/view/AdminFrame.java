@@ -70,12 +70,12 @@ public class AdminFrame extends JFrame {
 		JButton addBtn = new JButton("Delete");
 		panel.add(addBtn);
 		addBtn.addActionListener(e -> {
-			 
+			/* 
 				if(contr.deleteProduct(prods.get(name.getSelectedIndex()))){
 					JOptionPane.showMessageDialog(this, "Delete succesful", "Done", JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					JOptionPane.showMessageDialog(this, "Database error :(");
-				}
+				}*/
 			
 		});
 		panel.setBorder(BorderFactory.createTitledBorder("Delete product"));

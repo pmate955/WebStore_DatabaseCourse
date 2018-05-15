@@ -76,6 +76,8 @@ public class ProductDialog extends JDialog {
 		lbl.setIcon(product.getImageBySize(250));
 		lbl.setAlignmentX(CENTER_ALIGNMENT);
 		panel.add(lbl);
+		panel.add(new JLabel("Quantity: " + controller.getQuantity(product)));
+		
 		JButton commentBtn = new JButton("Kommentelés");
 		panel.add(this.createProductsPanel());
 		commentBtn.setAlignmentX(CENTER_ALIGNMENT);
