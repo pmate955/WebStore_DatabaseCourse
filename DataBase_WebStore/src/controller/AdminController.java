@@ -22,4 +22,8 @@ public class AdminController {
 	public boolean deleteProduct(Product p){
 		return dao.deleteProduct(p);
 	}
+	
+	public boolean updateQty(Product p, int quantity){
+		return true;
+	}
 }

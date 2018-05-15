@@ -28,6 +28,7 @@ public class AdminFrame extends JFrame {
 	private User u;
 	private AdminController contr;
 	private ProductController prod;
+	private List<Product> prods;
 	
 	public AdminFrame(User u, ProductController prod){
 		this.u = u;
@@ -60,7 +61,7 @@ public class AdminFrame extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		panel.add(new JLabel("Product name: "));
-		List<Product> prods = prod.getAllProducts();
+		prods = prod.getAllProducts();
 		JComboBox name = new JComboBox();
 		for(Product p:prods){
 			name.addItem(p.getName());
@@ -68,17 +69,43 @@ public class AdminFrame extends JFrame {
 		
 		panel.add(name);
 		JButton addBtn = new JButton("Delete");
+
+		panel.add(new JLabel("Quantity: "));
+		JTextField field = new JTextField();
+		field.setText(""+prod.getQuantity(prods.get(name.getSelectedIndex())));
+		name.addActionListener(e ->{
+			field.setText(""+prod.getQuantity(prods.get(name.getSelectedIndex())));
+		});
+		panel.add(field);
+		JButton updateBtn = new JButton("Update qty");
+		updateBtn.addActionListener(e->{
+			try{
+				int num = Integer.parseInt(field.getText());
+				if(!contr.updateQty(prods.get(name.getSelectedIndex()), num)){
+					JOptionPane.showMessageDialog(this, "Database error :(");
+				}
+			} catch (NumberFormatException ex){
+				JOptionPane.showMessageDialog(this, "Not a number");
+			}
+		});
+		panel.add(updateBtn);
 		panel.add(addBtn);
 		addBtn.addActionListener(e -> {
 			 
 				if(contr.deleteProduct(prods.get(name.getSelectedIndex()))){
 					JOptionPane.showMessageDialog(this, "Delete succesful", "Done", JOptionPane.INFORMATION_MESSAGE);
+					name.removeAllItems();
+					prods= prod.getAllProducts();
+					for(Product p:prods){
+						name.addItem(p.getName());
+					}
+					this.repaint();
 				} else {
 					JOptionPane.showMessageDialog(this, "Database error :(");
 				}
 			
 		});
-		panel.setBorder(BorderFactory.createTitledBorder("Delete product"));
+		panel.setBorder(BorderFactory.createTitledBorder("Delete or update quantity of product"));
 		return panel;
 	}
 

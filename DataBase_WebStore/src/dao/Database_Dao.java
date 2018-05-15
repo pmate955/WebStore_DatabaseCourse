@@ -388,7 +388,7 @@ public class Database_Dao {
 			int result4 = prestmt.executeUpdate();
 			prestmt = conn.prepareStatement(SQL5);
 			int result5 = prestmt.executeUpdate();
-			return (result == 1) && (result2 == 1) && (result3 == 1) && (result4 == 1) && (result5 == 1);
+			return (result == 1) && (result2 == 1) && (result5 == 1);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
