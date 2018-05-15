@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -69,17 +70,17 @@ public class AdminFrame extends JFrame {
                 "Status",
                 "Price"};
 		List<Order> input = contr.getOrders();
-		String[][] datas = new String[5][input.size()];
+		String[][] datas = new String[input.size()][5];
 		for(int i = 0; i < input.size(); i++){
 			Order o = input.get(i);
-			datas[0][i] = o.getOrderDate().toString();
-			datas[1][i] = o.getUser().getUserName();
-			datas[2][i] = o.getProduct().getName();
-			datas[3][i] = o.getStatus()+ " ";
-			datas[4][i] = o.getProduct().getPrice() + " ";
+			datas[i][0] = o.getOrderDate().toString();
+			datas[i][1] = o.getUser().getUserName();
+			datas[i][2] = o.getProduct().getName();
+			datas[i][3] = o.getStatus()+ " ";
+			datas[i][4] = o.getProduct().getPrice() + " ";
 		}
 		JTable table = new JTable(datas,columnNames);
-		panel.add(table, BorderLayout.NORTH);
+		panel.add(new JScrollPane(table), BorderLayout.NORTH);
 		panel.setBorder(BorderFactory.createTitledBorder("Orders"));
 		return panel;
 	}
