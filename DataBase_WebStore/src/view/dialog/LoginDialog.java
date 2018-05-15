@@ -14,15 +14,16 @@ import javax.swing.JTextField;
 
 import controller.LogInController;
 import model.bean.User;
+import view.MainFrame;
 
 public class LoginDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private LogInController controller;
 	public User user1;
 
-	public LoginDialog(LogInController controller) {
+	public LoginDialog(LogInController controller, MainFrame f) {
 		this.controller = controller;
-		
+		this.setLocationRelativeTo(f);
 		this.setTitle("Login");
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.add(createLoginPanel());

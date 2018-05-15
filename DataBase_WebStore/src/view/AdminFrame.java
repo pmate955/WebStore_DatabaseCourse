@@ -161,7 +161,7 @@ public class AdminFrame extends JFrame {
 
 	public JPanel createAddPanel() {
 		JPanel out = new JPanel();
-		out.setLayout(new GridLayout(2,8));
+		out.setLayout(new GridLayout(5,2));
 		out.add(new JLabel("Name: "));
 		JTextField nameField = new JTextField();
 		out.add(nameField);
@@ -200,6 +200,7 @@ public class AdminFrame extends JFrame {
 		out.add(new JLabel("Quantity:"));
 		
 		out.add(qtity);
+		out.add(new JLabel(""));
 		out.add(addBtn);
 		out.setBorder(BorderFactory.createTitledBorder("Add product"));
 		return out;

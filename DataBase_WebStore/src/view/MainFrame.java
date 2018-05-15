@@ -49,7 +49,7 @@ public class MainFrame extends JFrame {
 		JButton regist = new JButton("Registration");
 		
 		login.addActionListener(event -> {
-			l = new LoginDialog(controller);
+			l = new LoginDialog(controller, this);
 			User u = l.user1;
 			if(u != null && !u.isAdmin()) {
 				new LoggedinFrame(controller, prod, u);
