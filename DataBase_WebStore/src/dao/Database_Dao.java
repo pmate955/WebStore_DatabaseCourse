@@ -558,7 +558,7 @@ public class Database_Dao {
 				list.add(str);
 			}
 			
-			return str;
+			return list;
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
