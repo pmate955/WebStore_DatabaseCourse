@@ -37,4 +37,8 @@ public class AdminController {
 	public boolean updateOrder(Order o) {
 		return dao.updateOrder(o);
 	}
+	
+	public List<String> getMonthlyStat(){
+		return null;
+	}
 }
