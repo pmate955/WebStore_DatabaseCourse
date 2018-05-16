@@ -39,6 +39,6 @@ public class AdminController {
 	}
 	
 	public List<String> getMonthlyStat(){
-		return null;
+		return dao.getMonthlyStat();
 	}
 }

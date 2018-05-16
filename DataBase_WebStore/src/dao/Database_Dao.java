@@ -540,4 +540,29 @@ public class Database_Dao {
 		
 		return false;
 	}
+
+	public List<String> getMonthlyStat() {
+		List<String> list = new ArrayList<String>();
+		
+		SQL = "SELECT to_char(FIZETESI_IDOPONT, 'YYYY-MM'), sum(BEFOLYO_OSSZEG) " + 
+				"FROM PENZUGY " + 
+				"GROUP BY to_char(FIZETESI_IDOPONT, 'YYYY-MM') " + 
+				"ORDER BY 1";
+		
+		try {
+			rs = stmt.executeQuery(SQL);
+			
+			while(rs.next()) {
+				String str = rs.getDate("FIZETESI_IDOPONT").toString() + " " + rs.getInt("BEFOLYO_OSSZEG");
+				
+				list.add(str);
+			}
+			
+			return str;
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 }
