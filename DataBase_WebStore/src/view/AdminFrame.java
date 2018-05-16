@@ -68,20 +68,21 @@ public class AdminFrame extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		JButton shipping = new JButton("Shipping order");
-		panel.add(shipping, BorderLayout.CENTER);
-		String[] columnNames = {"Date","Username",
+		panel.add(shipping, BorderLayout.NORTH);
+		String[] columnNames = {"ID", "Date","Username",
                 "Product name",
                 "Status",
                 "Price"};
 		List<Order> input = contr.getOrders();
-		String[][] datas = new String[input.size()][5];
+		String[][] datas = new String[input.size()][6];
 		for(int i = 0; i < input.size(); i++){
 			Order o = input.get(i);
-			datas[i][0] = o.getOrderDate().toString();
-			datas[i][1] = o.getUser().getUserName();
-			datas[i][2] = o.getProduct().getName();
-			datas[i][3] = o.getStatus()+ " ";
-			datas[i][4] = o.getProduct().getPrice() + " ";
+			datas[i][0] = o.getPID()+ "";
+			datas[i][1] = o.getOrderDate().toString();
+			datas[i][2] = o.getUser().getUserName();
+			datas[i][3] = o.getProduct().getName();
+			datas[i][4] = o.getStatus()+ " ";
+			datas[i][5] = o.getProduct().getPrice() + " ";
 		}
 		JTable table = new JTable(datas,columnNames);
 		table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer()
@@ -91,7 +92,7 @@ public class AdminFrame extends JFrame {
 		    {
 		        final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 		        ;
-		        if(column == 3){
+		        if(column == 4){
 		        	String in = (String)value;
 		        	c.setBackground(in.equals("fizetve ") ? Color.RED : Color.WHITE);
 		        }

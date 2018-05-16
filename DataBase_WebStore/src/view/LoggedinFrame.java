@@ -15,6 +15,7 @@ import controller.LogInController;
 import controller.ProductController;
 import model.bean.Product;
 import model.bean.User;
+import view.dialog.CompareDialog;
 import view.dialog.ProfileFrame;
 import view.panels.ProductPanel;
 
@@ -56,7 +57,10 @@ public class LoggedinFrame extends MainFrame implements Runnable {
 		profile.addActionListener(e -> {
 			new ProfileFrame(user,prod, contr);
 		});
-		JMenuItem basket = new JMenuItem("Basket");
+		JMenuItem basket = new JMenuItem("Compare");
+		basket.addActionListener(e -> {
+			new CompareDialog(prod);
+		});
 		JMenuItem logout = new JMenuItem("Log Out");
 		logout.addActionListener(evt -> {
 			new MainFrame(contr,prod);
