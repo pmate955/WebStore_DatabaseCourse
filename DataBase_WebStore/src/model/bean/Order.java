@@ -8,15 +8,21 @@ public class Order {
 	private String status;
 	private Date orderDate;
 	private Date payDate;
+	private int PID;
 	private int payMode;
 	
-	public Order(User user, Product product, String status, Date orderDate, Date payDate, int payMode) {
+	public Order(User user, Product product, int PID, String status, Date orderDate, Date payDate, int payMode) {
 		this.user = user;
 		this.product = product;
 		this.status = status;
 		this.orderDate = orderDate;
 		this.payDate = payDate;
 		this.payMode = payMode;
+		this.PID = PID;
+	}
+
+	public int getPID() {
+		return PID;
 	}
 
 	public User getUser() {

@@ -33,4 +33,8 @@ public class AdminController {
 	public List<Order> getOrders(){
 		return dao.getOrders();
 	}
+	
+	public boolean updateOrder(Order o) {
+		return dao.updateOrder(o);
+	}
 }

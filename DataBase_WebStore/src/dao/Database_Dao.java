@@ -492,7 +492,7 @@ public class Database_Dao {
 				+ "FELHASZNALO.VAROS, FELHASZNALO.UTCA, FELHASZNALO.HAZSZAM,"
 				+ "FELHASZNALO.JOGOSULTSAG, FELHASZNALO.EGYENLEG, FELHASZNALO.KEDVEZMENYPONT, TERMEK.ID AS PID, TERMEK.NEV, "
 				+ "TERMEK.AR,ARUKATEGORIA.NEV, TERMEK.DATUM, RENDELES.RENDELESI_IDOPONT, RENDELES.STATUSZ, "
-				+ "RENDELES.FIZETESI_MOD, PENZUGY.FIZETESI_IDOPONT FROM FELHASZNALO, TERMEK, "
+				+ "RENDELES.FIZETESI_MOD, PENZUGY.FIZETESI_IDOPONT FROM FELHASZNALO, TERMEK, RENDELES.PENZUGY_ID AS PPID"
 				+ "KATEGORIA, ARUKATEGORIA, PENZUGY, RENDELES WHERE "
 				+ " KATEGORIA.TERMEK_ID = TERMEK.ID AND "
 				+ " KATEGORIA.ARUKATEGORIA_ID = ARUKATEGORIA.ID AND"
@@ -514,7 +514,7 @@ public class Database_Dao {
 				Product p = new Product(rs.getInt("PID"), rs.getString("NEV"), rs.getInt("AR"), rs.getString("NEV"),
 						rs.getDate("DATUM"));
 				
-				Order order = new Order(user, p, rs.getString("STATUSZ"), rs.getDate("RENDELESI_IDOPONT"), rs.getDate("FIZETESI_IDOPONT"), rs.getInt("FIZETESI_MOD"));
+				Order order = new Order(user, p, rs.getInt("PPID"), rs.getString("STATUSZ"), rs.getDate("RENDELESI_IDOPONT"), rs.getDate("FIZETESI_IDOPONT"), rs.getInt("FIZETESI_MOD"));
 				
 				out.add(order);
 			}
@@ -524,5 +524,20 @@ public class Database_Dao {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public boolean updateOrder(Order o) {
+		SQL = "UPDATE RENDELES SET STATUSZ = " + o.getStatus() + " WHERE PENZUGY_ID = " + o.getPID();
+		
+		try {
+			prestmt = conn.prepareStatement(SQL);
+			int result = prestmt.executeUpdate();
+			
+			return result == 1;
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 }
