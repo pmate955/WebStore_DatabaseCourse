@@ -111,8 +111,11 @@ public class LoggedinFrame extends MainFrame implements Runnable {
 		} 
 		
 		mainPanel.setLayout(new GridLayout(products.size()/5+1,products.size()%5+1));
+		int num = 0;
 		for(Product p:products){
 			mainPanel.add(new ProductPanel(prod, p, user, contr));
+			if(num > 10) break;
+			num++;
 		}
 		mainPanel.setBorder(BorderFactory.createTitledBorder("Products by your orders"));
 		this.setContentPane(mainPanel);
