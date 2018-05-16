@@ -104,9 +104,10 @@ public class LoggedinFrame extends MainFrame implements Runnable {
 		List<Product> products = prod.getProductsByUser(user);
 		if(products.size() == 0){
 			List<String> categories = prod.getCategories();
-			for(String s : categories){
-				products.addAll(prod.getProductsByCategory(s));		
-				if(products.size()>=12) break;
+			int i = 0;
+			for(Product p: prod.getProductsByCategory(categories.get(0))){
+				products.add(p);
+				if(i++>=8) break;
 			}
 		} 
 		

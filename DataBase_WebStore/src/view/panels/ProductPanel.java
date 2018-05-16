@@ -20,12 +20,14 @@ import view.dialog.ProductDialog;
 public class ProductPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private User user;
+	public String prodName;
 	
 	public ProductPanel(ProductController controller, Product product, ProductDialog dialog, User user,LogInController con){
 		super();
 		this.setPreferredSize(new Dimension(200,250));
 		this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		JLabel title = new JLabel(product.getName());
+		prodName = product.getName();
 		title.setFont(new Font("TimesRoman", Font.BOLD, 18));
 		title.setAlignmentX(CENTER_ALIGNMENT);
 		this.add( title);
@@ -52,6 +54,7 @@ public class ProductPanel extends JPanel {
 		this.setPreferredSize(new Dimension(200,250));
 		this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		JLabel title = new JLabel(product.getName());
+		prodName = product.getName();
 		title.setFont(new Font("TimesRoman", Font.BOLD, 18));
 		title.setAlignmentX(CENTER_ALIGNMENT);
 		this.add( title);

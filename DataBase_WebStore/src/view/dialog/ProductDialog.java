@@ -3,9 +3,8 @@ package view.dialog;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -113,11 +112,17 @@ public class ProductDialog extends JDialog {
 		JPanel p = new JPanel();
 		p.setLayout(new FlowLayout(FlowLayout.CENTER));
 		int count = 0;
+		List<String> alreadyAdded = new ArrayList<String>();
 		for(Product pr : controller.getProductsByBuyers(product)){
-			count++;
+			
 			if(count > 5) break;
 			ProductPanel ppanel = new ProductPanel(controller, pr, this, user, log);
-			p.add(ppanel);
+			if(!alreadyAdded.contains(ppanel.prodName)){
+				p.add(ppanel);
+				count++;
+				alreadyAdded.add(ppanel.prodName);
+			}
+			
 		}
 		p.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.blue, 2), "Termékek, amit mások is megvettek", TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION, new Font("TimesRoman", Font.BOLD, 12)));
 		return p;
