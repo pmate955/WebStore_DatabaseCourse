@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -20,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import controller.AdminController;
 import controller.LogInController;
@@ -65,6 +67,8 @@ public class AdminFrame extends JFrame {
 	private Component createOrderPanel() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
+		JButton shipping = new JButton("Shipping order");
+		panel.add(shipping, BorderLayout.CENTER);
 		String[] columnNames = {"Date","Username",
                 "Product name",
                 "Status",
@@ -80,7 +84,21 @@ public class AdminFrame extends JFrame {
 			datas[i][4] = o.getProduct().getPrice() + " ";
 		}
 		JTable table = new JTable(datas,columnNames);
-		panel.add(new JScrollPane(table), BorderLayout.NORTH);
+		table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer()
+		{
+		    @Override
+		    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
+		    {
+		        final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+		        ;
+		        if(column == 3){
+		        	String in = (String)value;
+		        	c.setBackground(in.equals("fizetve ") ? Color.RED : Color.WHITE);
+		        }
+		        return c;
+		    }
+		});
+		panel.add(new JScrollPane(table), BorderLayout.CENTER);
 		panel.setBorder(BorderFactory.createTitledBorder("Orders"));
 		return panel;
 	}
