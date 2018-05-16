@@ -117,7 +117,7 @@ public class ProductDialog extends JDialog {
 			
 			if(count > 5) break;
 			ProductPanel ppanel = new ProductPanel(controller, pr, this, user, log);
-			if(!alreadyAdded.contains(ppanel.prodName)){
+			if(!alreadyAdded.contains(ppanel.prodName) && !product.getName().equals(ppanel.prodName)){
 				p.add(ppanel);
 				count++;
 				alreadyAdded.add(ppanel.prodName);
