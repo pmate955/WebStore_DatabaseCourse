@@ -64,7 +64,7 @@ public class AdminFrame extends JFrame {
 		this.setVisible(true);
 	}
 
-	private Component createOrderPanel() {
+	private JPanel createOrderPanel() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		JButton shipping = new JButton("Shipping order");
@@ -84,7 +84,20 @@ public class AdminFrame extends JFrame {
 			datas[i][4] = o.getStatus()+ " ";
 			datas[i][5] = o.getProduct().getPrice() + " ";
 		}
+		
 		JTable table = new JTable(datas,columnNames);
+		shipping.addActionListener(e -> {
+			int id = Integer.parseInt(datas[table.getSelectedRow()][0]);
+			if(contr.updateOrder(new Order(null,null,id, "kiszallitva", null,null, 0))){
+				JOptionPane.showMessageDialog(this, "Done");
+				datas[table.getSelectedRow()][4] = "kiszallitva";
+			} else {
+				JOptionPane.showMessageDialog(this, "Database error :(");
+			};
+			
+			table.repaint();
+			this.repaint();
+		});
 		table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer()
 		{
 		    @Override
@@ -94,7 +107,9 @@ public class AdminFrame extends JFrame {
 		        ;
 		        if(column == 4){
 		        	String in = (String)value;
-		        	c.setBackground(in.equals("fizetve ") ? Color.RED : Color.WHITE);
+		        	c.setBackground(in.equals("fizetve ") ? Color.RED : Color.GREEN);
+		        } else {
+		        	c.setBackground(Color.WHITE);
 		        }
 		        return c;
 		    }

@@ -527,7 +527,7 @@ public class Database_Dao {
 	}
 
 	public boolean updateOrder(Order o) {
-		SQL = "UPDATE RENDELES SET STATUSZ = " + o.getStatus() + " WHERE PENZUGY_ID = " + o.getPID();
+		SQL = "UPDATE RENDELES SET STATUSZ = '" + o.getStatus() + "' WHERE PENZUGY_ID = " + o.getPID();
 		
 		try {
 			prestmt = conn.prepareStatement(SQL);
