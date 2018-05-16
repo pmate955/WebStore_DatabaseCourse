@@ -544,7 +544,7 @@ public class Database_Dao {
 	public List<String> getMonthlyStat() {
 		List<String> list = new ArrayList<String>();
 		
-		SQL = "SELECT to_char(FIZETESI_IDOPONT, 'YYYY-MM'), sum(BEFOLYO_OSSZEG) " + 
+		SQL = "SELECT to_char(FIZETESI_IDOPONT, 'YYYY-MM') AS DATUM, sum(BEFOLYO_OSSZEG) AS OSSZEG " + 
 				"FROM PENZUGY " + 
 				"GROUP BY to_char(FIZETESI_IDOPONT, 'YYYY-MM') " + 
 				"ORDER BY 1";
@@ -553,8 +553,7 @@ public class Database_Dao {
 			rs = stmt.executeQuery(SQL);
 			
 			while(rs.next()) {
-				String str = rs.getDate("FIZETESI_IDOPONT").toString() + " " + rs.getInt("BEFOLYO_OSSZEG");
-				
+				String str = rs.getString("DATUM") + " | " + rs.getInt("OSSZEG") + " HUF";
 				list.add(str);
 			}
 			

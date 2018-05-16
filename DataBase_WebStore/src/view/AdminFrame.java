@@ -58,10 +58,31 @@ public class AdminFrame extends JFrame {
 		mainPanel.add(createAddPanel());
 		mainPanel.add(createCategoryPanel());
 		mainPanel.add(createDeletePanel());
+		mainPanel.add(createStatPanel());
 		mainPanel.add(createOrderPanel());
 		this.add(mainPanel);
 		this.pack();
 		this.setVisible(true);
+	}
+
+	private JPanel createStatPanel() {
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		List<String> input = contr.getMonthlyStat();
+		if(input == null) return panel;
+		String[] col ={"Statistic"};
+		String[][] datas = new String[input.size()][1];
+		JTable table = new JTable(datas, col){
+			public boolean isCellEditable(int row, int column) {                
+                return false;               
+			};
+		};
+		for(int i = 0; i < input.size(); i++){
+			datas[i][0] = input.get(i);
+		}
+		panel.add(new JScrollPane(table));
+		panel.setBorder(BorderFactory.createTitledBorder("Monthly statistic"));
+		return panel;
 	}
 
 	private JPanel createOrderPanel() {
@@ -85,7 +106,11 @@ public class AdminFrame extends JFrame {
 			datas[i][5] = o.getProduct().getPrice() + " ";
 		}
 		
-		JTable table = new JTable(datas,columnNames);
+		JTable table = new JTable(datas,columnNames){
+			public boolean isCellEditable(int row, int column) {                
+                return false;               
+			};
+		};
 		shipping.addActionListener(e -> {
 			int id = Integer.parseInt(datas[table.getSelectedRow()][0]);
 			if(contr.updateOrder(new Order(null,null,id, "kiszallitva", null,null, 0))){
